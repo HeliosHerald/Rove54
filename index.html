@@ -9,39 +9,53 @@
     /* ---- ANIMATION BASE ---- */
     .anim-hidden {
       opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 1s ease-out, transform 1s ease-out;
+      transform: translateY(12px);
+      transition: opacity 1.6s ease-out, transform 1.6s ease-out;
     }
     .anim-visible {
       opacity: 1;
       transform: translateY(0);
     }
-    .sigil-wrap {
+
+    /* Sigil wrapper — pulse animates on the div, not the img */
+    #sigil-wrap {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      gap: 0;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 2.5s ease-out;
     }
-    @keyframes sigilFade {
-      0%   { opacity: 0; transform: scale(0.92); }
-      100% { opacity: 0.9; transform: scale(1); }
+    #sigil-wrap.sigil-visible {
+      opacity: 1;
     }
+
+    /* Gold pulse radiates from the wrapper div */
     @keyframes sealBreak {
       0%   { box-shadow: 0 0 0px 0px rgba(200,146,42,0); }
-      40%  { box-shadow: 0 0 40px 18px rgba(200,146,42,0.18); }
+      35%  { box-shadow: 0 0 60px 30px rgba(200,146,42,0.22); }
       100% { box-shadow: 0 0 0px 0px rgba(200,146,42,0); }
     }
-    .sigil-anim {
-      animation: sigilFade 1.8s cubic-bezier(0.4,0,0.2,1) both;
+    #sigil-wrap.sigil-pulse {
+      animation: sealBreak 2s ease-out both;
     }
-    .sigil-pulse {
-      animation: sigilFade 1.8s cubic-bezier(0.4,0,0.2,1) both,
-                 sealBreak 1.4s ease-out 1.9s both;
+
+    /* Sigil image scale-in */
+    @keyframes sigilScale {
+      0%   { transform: scale(0.88); opacity: 0; }
+      100% { transform: scale(1);    opacity: 0.9; }
     }
+    #sigil-wrap img {
+      animation: none;
+    }
+    #sigil-wrap.sigil-visible img {
+      animation: sigilScale 2.5s cubic-bezier(0.4,0,0.2,1) both;
+    }
+
     .footer-note {
       opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 1s ease-out, transform 1s ease-out;
+      transform: translateY(12px);
+      transition: opacity 1.6s ease-out, transform 1.6s ease-out;
     }
     .footer-visible {
       opacity: 0.5 !important;
@@ -140,7 +154,9 @@
 
 <main class="page">
 
-  <img class="sigil anim-hidden" id="sigil" src="sigil.svg" alt="">
+  <div id="sigil-wrap">
+    <img class="sigil" id="sigil" src="sigil.svg" alt="">
+  </div>
 
   <p class="wordmark anim-hidden" id="el-1">Rove 54</p>
   <hr class="rule anim-hidden" id="el-2">
@@ -240,35 +256,38 @@
 
 <script>
   var delays = [
-    ['sigil',     300,  true],
-    ['el-1',     2700, false],
-    ['el-2',     3000, false],
-    ['el-3',     3200, false],
-    ['el-4',     3400, false],
-    ['el-5',     3500, false],
-    ['el-6',     3700, false],
-    ['el-7',     4100, false],
-    ['el-8',     4200, false],
-    ['el-9',     4300, false],
-    ['el-10',    4500, false],
-    ['el-11',    4600, false],
-    ['el-12',    4700, false],
-    ['el-footer',4900, false]
+    ['el-1',      3800, false],
+    ['el-2',      4200, false],
+    ['el-3',      4600, false],
+    ['el-4',      5000, false],
+    ['el-5',      5200, false],
+    ['el-6',      5600, false],
+    ['el-7',      6200, false],
+    ['el-8',      6400, false],
+    ['el-9',      6600, false],
+    ['el-10',     7000, false],
+    ['el-11',     7200, false],
+    ['el-12',     7500, false],
+    ['el-footer', 7800, false]
   ];
 
+  /* Sigil fades in first, then pulses */
+  setTimeout(function() {
+    var wrap = document.getElementById('sigil-wrap');
+    if (!wrap) return;
+    wrap.classList.add('sigil-visible');
+    setTimeout(function() {
+      wrap.classList.add('sigil-pulse');
+    }, 2600);
+  }, 400);
+
+  /* Rest of content cascades in */
   delays.forEach(function(item) {
-    var id = item[0], delay = item[1], isSigil = item[2];
+    var id = item[0], delay = item[1];
     setTimeout(function() {
       var el = document.getElementById(id);
       if (!el) return;
-      if (isSigil) {
-        el.classList.remove('anim-hidden');
-        el.classList.add('sigil-anim');
-        setTimeout(function() {
-          el.classList.remove('sigil-anim');
-          el.classList.add('sigil-pulse');
-        }, 1900);
-      } else if (id === 'el-footer') {
+      if (id === 'el-footer') {
         el.classList.add('footer-visible');
       } else {
         el.classList.remove('anim-hidden');
@@ -277,16 +296,4 @@
     }, delay);
   });
 
-  /* Fallback — if JS somehow stalls, show everything after 7s */
-  setTimeout(function() {
-    document.querySelectorAll('.anim-hidden').forEach(function(el) {
-      el.classList.remove('anim-hidden');
-      el.classList.add('anim-visible');
-    });
-    var footer = document.getElementById('el-footer');
-    if (footer) footer.classList.add('footer-visible');
-  }, 7000);
-</script>
-
-</body>
-</html>
+  /* Fallback — show everything after 10s if 
