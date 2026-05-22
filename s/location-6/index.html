@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>&#x25C6;</title>
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .confirmation { text-align: center; font-style: italic; color: var(--dim); font-size: 0.9rem; line-height: 2; }
+    .confirmation em { color: var(--accent); font-style: normal; }
+    .return-link { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dim); text-decoration: none; text-align: center; display: block; margin-top: 1rem; transition: color 0.2s; }
+    .return-link:hover { color: var(--ink); }
+  </style>
+</head>
+<body>
+<main class="page">
+  <img class="sigil" src="../../sigil.svg" alt="">
+  <hr class="rule">
+  <p class="flavor">[PLACEHOLDER — Location 6 flavor text.]</p>
+  <hr class="rule">
+  <p class="confirmation">The <em>Sixth Seal</em> is broken.<br>Record your fragment. Return to the rove.</p>
+  <a class="return-link" href="../../">&#x2190; Return to the Six Seals</a>
+  <hr class="rule">
+  <div class="fragment">
+    <span class="fragment-label">Seal 6 of 6</span>
+    <div class="fragment-code">[XX]</div>
+  </div>
+</main>
+<script>
+  document.cookie = "location_6=found; path=/; max-age=" + (60 * 60 * 24 * 365);
+</script>
+</body>
+</html>

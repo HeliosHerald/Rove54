@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rove 54</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ---- FRONT PAGE ADDITIONS ---- */
+
+    .wordmark {
+      text-align: center;
+      letter-spacing: 0.35em;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-top: 0.5rem;
+    }
+
+    .intro {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--ink);
+      line-height: 1.9;
+    }
+
+    .intro em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .section-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-align: center;
+      width: 100%;
+    }
+
+    /* ---- SEAL GRID ---- */
+    .seals {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .seal {
+      border: 1px solid var(--dim);
+      padding: 1.5rem;
+      opacity: 0.9;
+      position: relative;
+    }
+
+    .seal-heading {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.85rem;
+    }
+
+    .seal-clue {
+      font-size: 0.95rem;
+      color: var(--ink);
+      line-height: 1.85;
+      font-style: italic;
+    }
+
+    .seal-clue br {
+      display: block;
+      content: "";
+      margin-top: 0.1rem;
+    }
+
+    /* ---- INFO SECTION ---- */
+    .info-block {
+      width: 100%;
+      border: 1px solid var(--dim);
+      border-color: rgba(107, 100, 82, 0.35);
+      padding: 1.5rem;
+    }
+
+    .info-block ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .info-block li {
+      font-size: 0.82rem;
+      color: var(--dim);
+      line-height: 1.7;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .info-block li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .info-block a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .info-block a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    .footer-note {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--dim);
+      text-align: center;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+
+<main class="page">
+
+  <!-- SIGIL -->
+  <img class="sigil" src="sigil.svg" alt="">
+
+  <!-- WORDMARK -->
+  <p class="wordmark">Rove 54</p>
+
+  <hr class="rule">
+
+  <!-- =====================================================
+       EDIT THIS: Opening introduction in the Order's voice.
+       This is the first thing a participant reads.
+       Tone: solemn, inviting, slightly cryptic. Not explanatory.
+       Should answer: what is this, what must I do, why does it matter —
+       without stating any of those things plainly.
+       Suggested length: 3–5 sentences.
+       Example register: "Something has been left in this neighborhood.
+       It does not announce itself. Six seals mark its presence.
+       Find them, break them, and you will know what you are."
+       ===================================================== -->
+  <p class="intro">
+    [PLACEHOLDER — Opening address from the Order. Introduce the challenge
+    without explaining it. The participant should feel summoned, not instructed.
+    3–5 sentences. Use &lt;em&gt; tags sparingly around any single phrase
+    you want to glow gold.]
+  </p>
+
+  <hr class="rule">
+
+  <!-- SEALS -->
+  <span class="section-label">The Six Seals</span>
+
+  <div class="seals">
+
+    <div class="seal">
+      <span class="seal-heading">Seal I</span>
+      <p class="seal-clue">
+        Near greens, up steps —<br>
+        Within the domain of the maiden who trots and triumphs.<br>
+        Find the house of rest and relief.<br>
+        On its south flank your clue awaits.
+      </p>
+    </div>
+
+    <div class="seal">
+      <span class="seal-heading">Seal II</span>
+      <p class="seal-clue">
+        The father of geometry<br>
+        shaped a metal man.<br>
+        Find him and<br>
+        don't lose your head.
+      </p>
+    </div>
+
+    <div class="seal">
+      <span class="seal-heading">Seal III</span>
+      <p class="seal-clue">
+        Near unity —<br>
+        between two points,<br>
+        find its sign<br>
+        and look behind.
+      </p>
+    </div>
+
+    <div class="seal">
+      <span class="seal-heading">Seal IV</span>
+      <p class="seal-clue">
+        [PLACEHOLDER — Seal IV clue not yet provided.]
+      </p>
+    </div>
+
+    <div class="seal">
+      <span class="seal-heading">Seal V</span>
+      <p class="seal-clue">
+        Red doors, red brick —<br>
+        clad in armor, wielding water,<br>
+        they stand vigil.<br>
+        But everyone gets thirsty.
+      </p>
+    </div>
+
+    <div class="seal">
+      <span class="seal-heading">Seal VI</span>
+      <p class="seal-clue">
+        Admo's western green —<br>
+        best under bright blue skies.<br>
+        Under three polarizing colors,<br>
+        red, white, and blue.
+      </p>
+    </div>
+
+  </div>
+
+  <hr class="rule">
+
+  <!-- USEFUL INFORMATION -->
+  <span class="section-label">Before You Rove</span>
+
+  <div class="info-block">
+    <ul>
+      <li>Complete the hunt on a single device. Your progress is stored locally and will not transfer between phones or browsers.</li>
+      <li>Do not clear your browser cookies until the hunt is complete. Doing so will erase your progress.</li>
+      <li>The seals may be found in any order. No sequence is required.</li>
+      <li>Each seal is marked with the Order's sigil. Hold your phone to it.</li>
+      <li>The final gate will not open until all six seals are broken.</li>
+      <li>Questions, problems, or found something broken? Write to <a href="mailto:[PLACEHOLDER@email.com]">[PLACEHOLDER — your contact email]</a></li>
+    </ul>
+  </div>
+
+  <p class="footer-note">Rove 54 &nbsp;·&nbsp; Adams Morgan &nbsp;·&nbsp; ◆</p>
+
+</main>
+
+</body>
+</html>

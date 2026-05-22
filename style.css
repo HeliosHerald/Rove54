@@ -1,0 +1,129 @@
+/* ============================================================
+   ORDER — SHARED STYLES
+   You can change colors and fonts here and it affects every page.
+   ============================================================ */
+
+/* --- FONT --- */
+/* [PLACEHOLDER: Replace with your chosen font from Google Fonts] */
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
+
+/* --- COLOR PALETTE --- */
+:root {
+  --bg:     #0e0d0b;       /* background — near black */
+  --ink:    #d4c9a8;       /* main text — aged parchment */
+  --dim:    #6b6452;       /* secondary text — faded */
+  --accent: #c8922a;       /* gold accent — use sparingly */
+}
+
+/* --- RESET --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- BASE --- */
+html, body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'IM Fell English', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* --- PAGE WRAPPER --- */
+.page {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+/* --- SIGIL --- */
+.sigil {
+  width: 120px;
+  height: 120px;
+  opacity: 0.9;
+}
+
+/* --- DIVIDER --- */
+.rule {
+  width: 100%;
+  border: none;
+  border-top: 1px solid var(--dim);
+  opacity: 0.3;
+}
+
+/* --- TEXT BLOCKS --- */
+.flavor {
+  text-align: center;
+  font-style: italic;
+  color: var(--dim);
+  font-size: 0.9rem;
+}
+
+.clue {
+  text-align: center;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.clue-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--dim);
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+/* --- CODE FRAGMENT --- */
+.fragment {
+  text-align: center;
+  border: 1px solid var(--dim);
+  padding: 1.25rem 2rem;
+  width: 100%;
+  opacity: 0.85;
+}
+
+.fragment-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--dim);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.fragment-code {
+  font-size: 2rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+
+/* --- COMPLETION PAGE --- */
+.seal-status {
+  text-align: center;
+  font-style: italic;
+  color: var(--dim);
+  font-size: 0.95rem;
+  line-height: 2;
+}
+
+.invite-link {
+  display: inline-block;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: 1px solid var(--accent);
+  padding: 0.75rem 2rem;
+  transition: opacity 0.2s;
+}
+
+.invite-link:hover { opacity: 0.7; }

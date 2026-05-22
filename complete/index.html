@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>&#x25C6;</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .confirmation-complete {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--ink);
+      line-height: 2;
+    }
+    .confirmation-complete em {
+      color: var(--accent);
+      font-style: normal;
+    }
+  </style>
+</head>
+<body>
+
+<main class="page">
+
+  <img class="sigil" src="../sigil.svg" alt="">
+
+  <hr class="rule">
+
+  <!-- All 6 found -->
+  <div id="msg-complete" style="display:none; text-align:center;">
+
+    <!-- =====================================================
+         EDIT THIS: congratulatory message in the Order's voice.
+         Solemn, brief, earned. 2-3 sentences.
+         This is the moment of apotheosis. Treat it as such.
+         ===================================================== -->
+    <p class="flavor" style="margin-bottom:2rem;">
+      [PLACEHOLDER — The Order speaks. All six seals are broken.
+      Name what the participant has become. Tell them what comes next.
+      Do not over-explain. Let the weight of the moment do the work.]
+    </p>
+
+    <!-- =====================================================
+         EDIT THIS: replace # with your Discord invite URL
+         ===================================================== -->
+    <a class="invite-link" href="#">Enter the Order</a>
+
+  </div>
+
+  <!-- Seals still missing -->
+  <div id="msg-incomplete" style="display:none;">
+    <p class="seal-status" id="seal-text"></p>
+  </div>
+
+</main>
+
+<script>
+  var SEALS = [
+    "location_1",
+    "location_2",
+    "location_3",
+    "location_4",
+    "location_5",
+    "location_6"
+  ];
+
+  function getCookies() {
+    var result = {};
+    document.cookie.split(";").forEach(function(c) {
+      var parts = c.trim().split("=");
+      result[parts[0]] = parts[1];
+    });
+    return result;
+  }
+
+  function check() {
+    var cookies = getCookies();
+    var missing = SEALS.filter(function(s) { return cookies[s] !== "found"; });
+    var remaining = missing.length;
+
+    if (remaining === 0) {
+      document.getElementById("msg-complete").style.display = "block";
+    } else {
+      document.getElementById("msg-incomplete").style.display = "block";
+
+      /* =====================================================
+         EDIT THIS: the Order's voice when seals are missing.
+         The number of remaining seals is injected automatically.
+         ===================================================== */
+      var word = remaining === 1 ? "seal remains unbroken" : "seals remain unbroken";
+      document.getElementById("seal-text").innerHTML =
+        "[PLACEHOLDER — The Order speaks of incompletion. Something terse and oracular.]" +
+        "<br><br>" +
+        remaining + " " + word + ".";
+    }
+  }
+
+  check();
+</script>
+
+</body>
+</html>
