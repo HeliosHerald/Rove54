@@ -92,17 +92,20 @@
     }
     .info-block a:hover { border-bottom-color: var(--accent); }
 
-    /* ---- SIGIL PULSE ---- */
+    /* ---- SIGIL WRAP ---- */
     #sigil-wrap {
       display: flex;
       justify-content: center;
       align-items: center;
-      border-radius: 50%;
+      position: relative;
     }
-    @keyframes sealBreak {
-      0%   { box-shadow: 0 0 0px 0px rgba(200,146,42,0); }
-      35%  { box-shadow: 0 0 70px 35px rgba(200,146,42,0.25); }
-      100% { box-shadow: 0 0 0px 0px rgba(200,146,42,0); }
+    #burst-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
     }
   </style>
 </head>
@@ -202,58 +205,67 @@
 
 </main>
 
+<canvas id="burst-canvas"></canvas>
+
 <script>
+  /* ---- FADE HELPER ---- */
   function fadeIn(id, duration, targetOpacity) {
     var el = document.getElementById(id);
     if (!el) return;
-    var op = 0;
+    var op = parseFloat(el.style.opacity) || 0;
     var target = targetOpacity || 1;
-    var step = target / (duration / 16);
+    var step = (target - op) / (duration / 16);
     var timer = setInterval(function() {
       op += step;
-      if (op >= target) {
-        op = target;
-        clearInterval(timer);
-      }
+      if (op >= target) { op = target; clearInterval(timer); }
       el.style.opacity = op;
     }, 16);
   }
 
-  function pulse() {
-    var wrap = document.getElementById('sigil-wrap');
-    if (!wrap) return;
-    wrap.style.animation = 'sealBreak 2s ease-out both';
-  }
+  /* ---- CANVAS BURST ---- */
+  function fireBurst() {
+    var canvas = document.getElementById('burst-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-  /* Timeline */
-  setTimeout(function() { fadeIn('sigil', 2000, 0.9); },          400);
-  setTimeout(function() { pulse(); },                              2600);
-  setTimeout(function() { fadeIn('el-1',  1200); },               3200);
-  setTimeout(function() { fadeIn('el-2',  1000); },               3600);
-  setTimeout(function() { fadeIn('el-3',  1400); },               3900);
-  setTimeout(function() { fadeIn('el-4',  1000); },               4400);
-  setTimeout(function() { fadeIn('el-5',  1000); },               4600);
-  setTimeout(function() { fadeIn('el-6',  1600); },               4900);
-  setTimeout(function() { fadeIn('el-7',  1000); },               5600);
-  setTimeout(function() { fadeIn('el-8',  1000); },               5800);
-  setTimeout(function() { fadeIn('el-9',  1400); },               6000);
-  setTimeout(function() { fadeIn('el-10', 1000); },               6600);
-  setTimeout(function() { fadeIn('el-11', 1000); },               6800);
-  setTimeout(function() { fadeIn('el-12', 1000); },               7000);
-  setTimeout(function() { fadeIn('el-footer', 1000, 0.5); },      7300);
+    var cx = canvas.width  / 2;
+    var cy = canvas.height / 2;
 
-  /* Absolute fallback — show everything after 10s no matter what */
-  setTimeout(function() {
-    var ids = ['sigil','el-1','el-2','el-3','el-4','el-5','el-6',
-               'el-7','el-8','el-9','el-10','el-11','el-12'];
-    ids.forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) el.style.opacity = 1;
-    });
-    var f = document.getElementById('el-footer');
-    if (f) f.style.opacity = 0.5;
-  }, 10000);
-</script>
+    /* Three rings at different speeds and opacities */
+    var rings = [
+      { r: 0, maxR: Math.max(canvas.width, canvas.height) * 0.9, speed: 5.5, alpha: 0.55, width: 2.5 },
+      { r: 0, maxR: Math.max(canvas.width, canvas.height) * 0.7, speed: 3.8, alpha: 0.35, width: 1.5 },
+      { r: 0, maxR: Math.max(canvas.width, canvas.height) * 0.5, speed: 2.5, alpha: 0.20, width: 1.0 }
+    ];
 
-</body>
-</html>
+    /* Central bloom that fades immediately */
+    var bloom = { alpha: 0.45 };
+
+    var start = null;
+    function draw(ts) {
+      if (!start) start = ts;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      /* Bloom */
+      if (bloom.alpha > 0) {
+        var grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 120);
+        grad.addColorStop(0,   'rgba(255,210,80,' + bloom.alpha + ')');
+        grad.addColorStop(0.4, 'rgba(200,146,42,' + (bloom.alpha * 0.6) + ')');
+        grad.addColorStop(1,   'rgba(200,146,42,0)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        bloom.alpha -= 0.018;
+      }
+
+      /* Rings */
+      var allDone = true;
+      rings.forEach(function(ring) {
+        ring.r += ring.speed;
+        var progress = ring.r / ring.maxR;
+        var alpha = ring.alpha * (1 - progress);
+        if (alpha > 0.001) {
+          allDone = false;
+          ctx.beginPath();
+          ctx.arc(cx, cy, ring.r, 0, Math.PI *
