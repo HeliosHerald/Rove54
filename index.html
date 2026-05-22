@@ -6,55 +6,49 @@
   <title>Rove 54</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ---- ENTRANCE ANIMATION ---- */
-
-    @keyframes sigilRise {
-      0%   { opacity: 0 !important; transform: scale(0.92); }
-      100% { opacity: 0.9 !important; transform: scale(1); }
+    /* ---- ANIMATION BASE ---- */
+    .anim-hidden {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
     }
-
+    .anim-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .sigil-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    @keyframes sigilFade {
+      0%   { opacity: 0; transform: scale(0.92); }
+      100% { opacity: 0.9; transform: scale(1); }
+    }
     @keyframes sealBreak {
-      0%   { box-shadow: 0 0 0px 0px rgba(200, 146, 42, 0); }
-      40%  { box-shadow: 0 0 40px 18px rgba(200, 146, 42, 0.2); }
-      100% { box-shadow: 0 0 0px 0px rgba(200, 146, 42, 0); }
+      0%   { box-shadow: 0 0 0px 0px rgba(200,146,42,0); }
+      40%  { box-shadow: 0 0 40px 18px rgba(200,146,42,0.18); }
+      100% { box-shadow: 0 0 0px 0px rgba(200,146,42,0); }
     }
-
-    @keyframes contentRise {
-      0%   { opacity: 0 !important; transform: translateY(8px); }
-      100% { opacity: 1 !important; transform: translateY(0); }
+    .sigil-anim {
+      animation: sigilFade 1.8s cubic-bezier(0.4,0,0.2,1) both;
     }
-
-    @keyframes footerRise {
-      0%   { opacity: 0 !important; transform: translateY(8px); }
-      100% { opacity: 0.5 !important; transform: translateY(0); }
+    .sigil-pulse {
+      animation: sigilFade 1.8s cubic-bezier(0.4,0,0.2,1) both,
+                 sealBreak 1.4s ease-out 1.9s both;
     }
-
-    /* Hide everything before animation runs */
-    main.page > * { opacity: 0; }
-
-    /* Sigil animates first */
-    main.page img.sigil {
-      animation:
-        sigilRise 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both,
-        sealBreak 1.4s ease-out 2.2s both;
+    .footer-note {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
     }
-
-    main.page > .wordmark                      { animation: contentRise 1s ease-out 2.7s both; }
-    main.page > hr:nth-of-type(1)              { animation: contentRise 1s ease-out 3.0s both; }
-    main.page > .intro                         { animation: contentRise 1s ease-out 3.2s both; }
-    main.page > hr:nth-of-type(2)              { animation: contentRise 1s ease-out 3.4s both; }
-    main.page > .section-label:nth-of-type(1)  { animation: contentRise 1s ease-out 3.5s both; }
-    main.page > .seals                         { animation: contentRise 1.2s ease-out 3.7s both; }
-    main.page > hr:nth-of-type(3)              { animation: contentRise 1s ease-out 4.1s both; }
-    main.page > .section-label:nth-of-type(2)  { animation: contentRise 1s ease-out 4.2s both; }
-    main.page > .info-block                    { animation: contentRise 1s ease-out 4.3s both; }
-    main.page > hr:nth-of-type(4)              { animation: contentRise 1s ease-out 4.5s both; }
-    main.page > .section-label:nth-of-type(3)  { animation: contentRise 1s ease-out 4.6s both; }
-    main.page > .invite-link                   { animation: contentRise 1s ease-out 4.7s both; }
-    main.page > .footer-note                   { animation: footerRise 1s ease-out 4.9s both; }
+    .footer-visible {
+      opacity: 0.5 !important;
+      transform: translateY(0);
+    }
 
     /* ---- FRONT PAGE ADDITIONS ---- */
-
     .wordmark {
       text-align: center;
       letter-spacing: 0.35em;
@@ -63,19 +57,16 @@
       color: var(--dim);
       margin-top: 0.5rem;
     }
-
     .intro {
       text-align: center;
       font-size: 0.95rem;
       color: var(--ink);
       line-height: 1.9;
     }
-
     .intro em {
       color: var(--accent);
       font-style: normal;
     }
-
     .section-label {
       font-size: 0.6rem;
       letter-spacing: 0.35em;
@@ -84,22 +75,18 @@
       text-align: center;
       width: 100%;
     }
-
-    /* ---- SEAL GRID ---- */
     .seals {
       width: 100%;
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
     }
-
     .seal {
       border: 1px solid var(--dim);
       padding: 1.5rem;
       opacity: 0.9;
       position: relative;
     }
-
     .seal-heading {
       font-size: 0.6rem;
       letter-spacing: 0.3em;
@@ -108,28 +95,17 @@
       display: block;
       margin-bottom: 0.85rem;
     }
-
     .seal-clue {
       font-size: 0.95rem;
       color: var(--ink);
       line-height: 1.85;
       font-style: italic;
     }
-
-    .seal-clue br {
-      display: block;
-      content: "";
-      margin-top: 0.1rem;
-    }
-
-    /* ---- INFO SECTION ---- */
     .info-block {
       width: 100%;
-      border: 1px solid var(--dim);
-      border-color: rgba(107, 100, 82, 0.35);
+      border: 1px solid rgba(107,100,82,0.35);
       padding: 1.5rem;
     }
-
     .info-block ul {
       list-style: none;
       padding: 0;
@@ -138,7 +114,6 @@
       flex-direction: column;
       gap: 0.85rem;
     }
-
     .info-block li {
       font-size: 0.82rem;
       color: var(--dim);
@@ -146,70 +121,41 @@
       padding-left: 1rem;
       position: relative;
     }
-
     .info-block li::before {
       content: "—";
       position: absolute;
       left: 0;
       color: var(--accent);
     }
-
     .info-block a {
       color: var(--accent);
       text-decoration: none;
       border-bottom: 1px solid transparent;
       transition: border-color 0.2s;
     }
-
-    .info-block a:hover {
-      border-bottom-color: var(--accent);
-    }
-
-    .footer-note {
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      color: var(--dim);
-      text-align: center;
-      opacity: 0.5;
-    }
+    .info-block a:hover { border-bottom-color: var(--accent); }
   </style>
 </head>
 <body>
 
 <main class="page">
 
-  <!-- SIGIL -->
-  <img class="sigil" src="sigil.svg" alt="">
+  <img class="sigil anim-hidden" id="sigil" src="sigil.svg" alt="">
 
-  <!-- WORDMARK -->
-  <p class="wordmark">Rove 54</p>
+  <p class="wordmark anim-hidden" id="el-1">Rove 54</p>
+  <hr class="rule anim-hidden" id="el-2">
 
-  <hr class="rule">
-
-  <!-- =====================================================
-       EDIT THIS: Opening introduction in the Order's voice.
-       This is the first thing a participant reads.
-       Tone: solemn, inviting, slightly cryptic. Not explanatory.
-       Should answer: what is this, what must I do, why does it matter —
-       without stating any of those things plainly.
-       Suggested length: 3–5 sentences.
-       Example register: "Something has been left in this neighborhood.
-       It does not announce itself. Six seals mark its presence.
-       Find them, break them, and you will know what you are."
-       ===================================================== -->
-  <p class="intro">
+  <p class="intro anim-hidden" id="el-3">
     [PLACEHOLDER — Opening address from the Order. Introduce the challenge
     without explaining it. The participant should feel summoned, not instructed.
     3–5 sentences. Use &lt;em&gt; tags sparingly around any single phrase
     you want to glow gold.]
   </p>
 
-  <hr class="rule">
+  <hr class="rule anim-hidden" id="el-4">
+  <span class="section-label anim-hidden" id="el-5">The Six Seals</span>
 
-  <!-- SEALS -->
-  <span class="section-label">The Six Seals</span>
-
-  <div class="seals">
+  <div class="seals anim-hidden" id="el-6">
 
     <div class="seal">
       <span class="seal-heading">Seal I</span>
@@ -270,12 +216,10 @@
 
   </div>
 
-  <hr class="rule">
+  <hr class="rule anim-hidden" id="el-7">
+  <span class="section-label anim-hidden" id="el-8">Before You Rove</span>
 
-  <!-- USEFUL INFORMATION -->
-  <span class="section-label">Before You Rove</span>
-
-  <div class="info-block">
+  <div class="info-block anim-hidden" id="el-9">
     <ul>
       <li>Complete the hunt on a single device. Your progress is stored locally and will not transfer between phones or browsers.</li>
       <li>Do not clear your browser cookies until the hunt is complete. Doing so will erase your progress.</li>
@@ -286,15 +230,63 @@
     </ul>
   </div>
 
-  <hr class="rule">
+  <hr class="rule anim-hidden" id="el-10">
+  <span class="section-label anim-hidden" id="el-11">When All Six Are Broken</span>
+  <a class="invite-link anim-hidden" id="el-12" href="complete/">Present your seals</a>
 
-  <span class="section-label">When All Six Are Broken</span>
-
-  <a class="invite-link" href="complete/">Present your seals</a>
-
-  <p class="footer-note">Rove 54 &nbsp;·&nbsp; Adams Morgan &nbsp;·&nbsp; ◆</p>
+  <p class="footer-note" id="el-footer">Rove 54 &nbsp;·&nbsp; Adams Morgan &nbsp;·&nbsp; ◆</p>
 
 </main>
+
+<script>
+  var delays = [
+    ['sigil',     300,  true],
+    ['el-1',     2700, false],
+    ['el-2',     3000, false],
+    ['el-3',     3200, false],
+    ['el-4',     3400, false],
+    ['el-5',     3500, false],
+    ['el-6',     3700, false],
+    ['el-7',     4100, false],
+    ['el-8',     4200, false],
+    ['el-9',     4300, false],
+    ['el-10',    4500, false],
+    ['el-11',    4600, false],
+    ['el-12',    4700, false],
+    ['el-footer',4900, false]
+  ];
+
+  delays.forEach(function(item) {
+    var id = item[0], delay = item[1], isSigil = item[2];
+    setTimeout(function() {
+      var el = document.getElementById(id);
+      if (!el) return;
+      if (isSigil) {
+        el.classList.remove('anim-hidden');
+        el.classList.add('sigil-anim');
+        setTimeout(function() {
+          el.classList.remove('sigil-anim');
+          el.classList.add('sigil-pulse');
+        }, 1900);
+      } else if (id === 'el-footer') {
+        el.classList.add('footer-visible');
+      } else {
+        el.classList.remove('anim-hidden');
+        el.classList.add('anim-visible');
+      }
+    }, delay);
+  });
+
+  /* Fallback — if JS somehow stalls, show everything after 7s */
+  setTimeout(function() {
+    document.querySelectorAll('.anim-hidden').forEach(function(el) {
+      el.classList.remove('anim-hidden');
+      el.classList.add('anim-visible');
+    });
+    var footer = document.getElementById('el-footer');
+    if (footer) footer.classList.add('footer-visible');
+  }, 7000);
+</script>
 
 </body>
 </html>
