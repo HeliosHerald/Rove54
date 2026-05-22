@@ -6,62 +6,6 @@
   <title>Rove 54</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ---- ANIMATION BASE ---- */
-    .anim-hidden {
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 1.6s ease-out, transform 1.6s ease-out;
-    }
-    .anim-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Sigil wrapper — pulse animates on the div, not the img */
-    #sigil-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
-      opacity: 0;
-      transition: opacity 2.5s ease-out;
-    }
-    #sigil-wrap.sigil-visible {
-      opacity: 1;
-    }
-
-    /* Gold pulse radiates from the wrapper div */
-    @keyframes sealBreak {
-      0%   { box-shadow: 0 0 0px 0px rgba(200,146,42,0); }
-      35%  { box-shadow: 0 0 60px 30px rgba(200,146,42,0.22); }
-      100% { box-shadow: 0 0 0px 0px rgba(200,146,42,0); }
-    }
-    #sigil-wrap.sigil-pulse {
-      animation: sealBreak 2s ease-out both;
-    }
-
-    /* Sigil image scale-in */
-    @keyframes sigilScale {
-      0%   { transform: scale(0.88); opacity: 0; }
-      100% { transform: scale(1);    opacity: 0.9; }
-    }
-    #sigil-wrap img {
-      animation: none;
-    }
-    #sigil-wrap.sigil-visible img {
-      animation: sigilScale 2.5s cubic-bezier(0.4,0,0.2,1) both;
-    }
-
-    .footer-note {
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 1.6s ease-out, transform 1.6s ease-out;
-    }
-    .footer-visible {
-      opacity: 0.5 !important;
-      transform: translateY(0);
-    }
-
     /* ---- FRONT PAGE ADDITIONS ---- */
     .wordmark {
       text-align: center;
@@ -98,7 +42,6 @@
     .seal {
       border: 1px solid var(--dim);
       padding: 1.5rem;
-      opacity: 0.9;
       position: relative;
     }
     .seal-heading {
@@ -148,6 +91,19 @@
       transition: border-color 0.2s;
     }
     .info-block a:hover { border-bottom-color: var(--accent); }
+
+    /* ---- SIGIL PULSE ---- */
+    #sigil-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+    }
+    @keyframes sealBreak {
+      0%   { box-shadow: 0 0 0px 0px rgba(200,146,42,0); }
+      35%  { box-shadow: 0 0 70px 35px rgba(200,146,42,0.25); }
+      100% { box-shadow: 0 0 0px 0px rgba(200,146,42,0); }
+    }
   </style>
 </head>
 <body>
@@ -155,24 +111,23 @@
 <main class="page">
 
   <div id="sigil-wrap">
-    <img class="sigil" id="sigil" src="sigil.svg" alt="">
+    <img class="sigil" id="sigil" src="sigil.svg" alt="" style="opacity:0;">
   </div>
 
-  <p class="wordmark anim-hidden" id="el-1">Rove 54</p>
-  <hr class="rule anim-hidden" id="el-2">
+  <p class="wordmark" id="el-1" style="opacity:0;">Rove 54</p>
+  <hr class="rule" id="el-2" style="opacity:0;">
 
-  <p class="intro anim-hidden" id="el-3">
+  <p class="intro" id="el-3" style="opacity:0;">
     [PLACEHOLDER — Opening address from the Order. Introduce the challenge
     without explaining it. The participant should feel summoned, not instructed.
     3–5 sentences. Use &lt;em&gt; tags sparingly around any single phrase
     you want to glow gold.]
   </p>
 
-  <hr class="rule anim-hidden" id="el-4">
-  <span class="section-label anim-hidden" id="el-5">The Six Seals</span>
+  <hr class="rule" id="el-4" style="opacity:0;">
+  <span class="section-label" id="el-5" style="opacity:0;">The Six Seals</span>
 
-  <div class="seals anim-hidden" id="el-6">
-
+  <div class="seals" id="el-6" style="opacity:0;">
     <div class="seal">
       <span class="seal-heading">Seal I</span>
       <p class="seal-clue">
@@ -182,7 +137,6 @@
         On its south flank your clue awaits.
       </p>
     </div>
-
     <div class="seal">
       <span class="seal-heading">Seal II</span>
       <p class="seal-clue">
@@ -192,7 +146,6 @@
         don't lose your head.
       </p>
     </div>
-
     <div class="seal">
       <span class="seal-heading">Seal III</span>
       <p class="seal-clue">
@@ -202,14 +155,12 @@
         and look behind.
       </p>
     </div>
-
     <div class="seal">
       <span class="seal-heading">Seal IV</span>
       <p class="seal-clue">
         [PLACEHOLDER — Seal IV clue not yet provided.]
       </p>
     </div>
-
     <div class="seal">
       <span class="seal-heading">Seal V</span>
       <p class="seal-clue">
@@ -219,7 +170,6 @@
         But everyone gets thirsty.
       </p>
     </div>
-
     <div class="seal">
       <span class="seal-heading">Seal VI</span>
       <p class="seal-clue">
@@ -229,13 +179,12 @@
         red, white, and blue.
       </p>
     </div>
-
   </div>
 
-  <hr class="rule anim-hidden" id="el-7">
-  <span class="section-label anim-hidden" id="el-8">Before You Rove</span>
+  <hr class="rule" id="el-7" style="opacity:0;">
+  <span class="section-label" id="el-8" style="opacity:0;">Before You Rove</span>
 
-  <div class="info-block anim-hidden" id="el-9">
+  <div class="info-block" id="el-9" style="opacity:0;">
     <ul>
       <li>Complete the hunt on a single device. Your progress is stored locally and will not transfer between phones or browsers.</li>
       <li>Do not clear your browser cookies until the hunt is complete. Doing so will erase your progress.</li>
@@ -246,54 +195,65 @@
     </ul>
   </div>
 
-  <hr class="rule anim-hidden" id="el-10">
-  <span class="section-label anim-hidden" id="el-11">When All Six Are Broken</span>
-  <a class="invite-link anim-hidden" id="el-12" href="complete/">Present your seals</a>
-
-  <p class="footer-note" id="el-footer">Rove 54 &nbsp;·&nbsp; Adams Morgan &nbsp;·&nbsp; ◆</p>
+  <hr class="rule" id="el-10" style="opacity:0;">
+  <span class="section-label" id="el-11" style="opacity:0;">When All Six Are Broken</span>
+  <a class="invite-link" id="el-12" href="complete/" style="opacity:0;">Present your seals</a>
+  <p class="footer-note" id="el-footer" style="opacity:0;">Rove 54 &nbsp;·&nbsp; Adams Morgan &nbsp;·&nbsp; ◆</p>
 
 </main>
 
 <script>
-  var delays = [
-    ['el-1',      3800, false],
-    ['el-2',      4200, false],
-    ['el-3',      4600, false],
-    ['el-4',      5000, false],
-    ['el-5',      5200, false],
-    ['el-6',      5600, false],
-    ['el-7',      6200, false],
-    ['el-8',      6400, false],
-    ['el-9',      6600, false],
-    ['el-10',     7000, false],
-    ['el-11',     7200, false],
-    ['el-12',     7500, false],
-    ['el-footer', 7800, false]
-  ];
+  function fadeIn(id, duration, targetOpacity) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var op = 0;
+    var target = targetOpacity || 1;
+    var step = target / (duration / 16);
+    var timer = setInterval(function() {
+      op += step;
+      if (op >= target) {
+        op = target;
+        clearInterval(timer);
+      }
+      el.style.opacity = op;
+    }, 16);
+  }
 
-  /* Sigil fades in first, then pulses */
-  setTimeout(function() {
+  function pulse() {
     var wrap = document.getElementById('sigil-wrap');
     if (!wrap) return;
-    wrap.classList.add('sigil-visible');
-    setTimeout(function() {
-      wrap.classList.add('sigil-pulse');
-    }, 2600);
-  }, 400);
+    wrap.style.animation = 'sealBreak 2s ease-out both';
+  }
 
-  /* Rest of content cascades in */
-  delays.forEach(function(item) {
-    var id = item[0], delay = item[1];
-    setTimeout(function() {
+  /* Timeline */
+  setTimeout(function() { fadeIn('sigil', 2000, 0.9); },          400);
+  setTimeout(function() { pulse(); },                              2600);
+  setTimeout(function() { fadeIn('el-1',  1200); },               3200);
+  setTimeout(function() { fadeIn('el-2',  1000); },               3600);
+  setTimeout(function() { fadeIn('el-3',  1400); },               3900);
+  setTimeout(function() { fadeIn('el-4',  1000); },               4400);
+  setTimeout(function() { fadeIn('el-5',  1000); },               4600);
+  setTimeout(function() { fadeIn('el-6',  1600); },               4900);
+  setTimeout(function() { fadeIn('el-7',  1000); },               5600);
+  setTimeout(function() { fadeIn('el-8',  1000); },               5800);
+  setTimeout(function() { fadeIn('el-9',  1400); },               6000);
+  setTimeout(function() { fadeIn('el-10', 1000); },               6600);
+  setTimeout(function() { fadeIn('el-11', 1000); },               6800);
+  setTimeout(function() { fadeIn('el-12', 1000); },               7000);
+  setTimeout(function() { fadeIn('el-footer', 1000, 0.5); },      7300);
+
+  /* Absolute fallback — show everything after 10s no matter what */
+  setTimeout(function() {
+    var ids = ['sigil','el-1','el-2','el-3','el-4','el-5','el-6',
+               'el-7','el-8','el-9','el-10','el-11','el-12'];
+    ids.forEach(function(id) {
       var el = document.getElementById(id);
-      if (!el) return;
-      if (id === 'el-footer') {
-        el.classList.add('footer-visible');
-      } else {
-        el.classList.remove('anim-hidden');
-        el.classList.add('anim-visible');
-      }
-    }, delay);
-  });
+      if (el) el.style.opacity = 1;
+    });
+    var f = document.getElementById('el-footer');
+    if (f) f.style.opacity = 0.5;
+  }, 10000);
+</script>
 
-  /* Fallback — show everything after 10s if 
+</body>
+</html>
