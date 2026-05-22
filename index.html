@@ -268,4 +268,55 @@
         if (alpha > 0.001) {
           allDone = false;
           ctx.beginPath();
-          ctx.arc(cx, cy, ring.r, 0, Math.PI *
+          ctx.arc(cx, cy, ring.r, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(200,146,42,' + alpha + ')';
+          ctx.lineWidth = ring.width;
+          ctx.stroke();
+        }
+      });
+
+      if (!allDone || bloom.alpha > 0) {
+        requestAnimationFrame(draw);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  /* ---- TIMELINE ---- */
+  /* Burst fires immediately */
+  setTimeout(function() { fireBurst(); },                         80);
+  /* Sigil rises from the burst */
+  setTimeout(function() { fadeIn('sigil', 2200, 0.9); },         300);
+  /* Content cascades in */
+  setTimeout(function() { fadeIn('el-1',  1200); },              2800);
+  setTimeout(function() { fadeIn('el-2',  1000); },              3200);
+  setTimeout(function() { fadeIn('el-3',  1400); },              3500);
+  setTimeout(function() { fadeIn('el-4',  1000); },              4000);
+  setTimeout(function() { fadeIn('el-5',  1000); },              4200);
+  setTimeout(function() { fadeIn('el-6',  1600); },              4500);
+  setTimeout(function() { fadeIn('el-7',  1000); },              5200);
+  setTimeout(function() { fadeIn('el-8',  1000); },              5400);
+  setTimeout(function() { fadeIn('el-9',  1400); },              5600);
+  setTimeout(function() { fadeIn('el-10', 1000); },              6200);
+  setTimeout(function() { fadeIn('el-11', 1000); },              6400);
+  setTimeout(function() { fadeIn('el-12', 1000); },              6600);
+  setTimeout(function() { fadeIn('el-footer', 1000, 0.5); },     6900);
+
+  /* Fallback — show everything after 10s */
+  setTimeout(function() {
+    var ids = ['sigil','el-1','el-2','el-3','el-4','el-5','el-6',
+               'el-7','el-8','el-9','el-10','el-11','el-12'];
+    ids.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.opacity = 1;
+    });
+    var f = document.getElementById('el-footer');
+    if (f) f.style.opacity = 0.5;
+  }, 10000);
+</script>
+
+</body>
+</html>
