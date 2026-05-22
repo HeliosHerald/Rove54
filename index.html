@@ -9,44 +9,49 @@
     /* ---- ENTRANCE ANIMATION ---- */
 
     @keyframes sigilRise {
-      0%   { opacity: 0; transform: scale(0.92); }
-      100% { opacity: 0.9; transform: scale(1); }
+      0%   { opacity: 0 !important; transform: scale(0.92); }
+      100% { opacity: 0.9 !important; transform: scale(1); }
     }
 
     @keyframes sealBreak {
       0%   { box-shadow: 0 0 0px 0px rgba(200, 146, 42, 0); }
-      40%  { box-shadow: 0 0 32px 14px rgba(200, 146, 42, 0.16); }
+      40%  { box-shadow: 0 0 40px 18px rgba(200, 146, 42, 0.2); }
       100% { box-shadow: 0 0 0px 0px rgba(200, 146, 42, 0); }
     }
 
     @keyframes contentRise {
-      0%   { opacity: 0; transform: translateY(8px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0%   { opacity: 0 !important; transform: translateY(8px); }
+      100% { opacity: 1 !important; transform: translateY(0); }
     }
 
-    .page > * {
-      opacity: 0;
+    @keyframes footerRise {
+      0%   { opacity: 0 !important; transform: translateY(8px); }
+      100% { opacity: 0.5 !important; transform: translateY(0); }
     }
 
-    .sigil {
+    /* Hide everything before animation runs */
+    main.page > * { opacity: 0; }
+
+    /* Sigil animates first */
+    main.page img.sigil {
       animation:
         sigilRise 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both,
         sealBreak 1.4s ease-out 2.2s both;
     }
 
-    .page > .wordmark                      { animation: contentRise 1s ease-out 2.7s both; }
-    .page > hr:nth-of-type(1)              { animation: contentRise 1s ease-out 3.0s both; }
-    .page > .intro                         { animation: contentRise 1s ease-out 3.2s both; }
-    .page > hr:nth-of-type(2)              { animation: contentRise 1s ease-out 3.4s both; }
-    .page > .section-label:nth-of-type(1)  { animation: contentRise 1s ease-out 3.5s both; }
-    .page > .seals                         { animation: contentRise 1.2s ease-out 3.7s both; }
-    .page > hr:nth-of-type(3)              { animation: contentRise 1s ease-out 4.1s both; }
-    .page > .section-label:nth-of-type(2)  { animation: contentRise 1s ease-out 4.2s both; }
-    .page > .info-block                    { animation: contentRise 1s ease-out 4.3s both; }
-    .page > hr:nth-of-type(4)              { animation: contentRise 1s ease-out 4.5s both; }
-    .page > .section-label:nth-of-type(3)  { animation: contentRise 1s ease-out 4.6s both; }
-    .page > .invite-link                   { animation: contentRise 1s ease-out 4.7s both; }
-    .page > .footer-note                   { animation: contentRise 1s ease-out 4.9s both; }
+    main.page > .wordmark                      { animation: contentRise 1s ease-out 2.7s both; }
+    main.page > hr:nth-of-type(1)              { animation: contentRise 1s ease-out 3.0s both; }
+    main.page > .intro                         { animation: contentRise 1s ease-out 3.2s both; }
+    main.page > hr:nth-of-type(2)              { animation: contentRise 1s ease-out 3.4s both; }
+    main.page > .section-label:nth-of-type(1)  { animation: contentRise 1s ease-out 3.5s both; }
+    main.page > .seals                         { animation: contentRise 1.2s ease-out 3.7s both; }
+    main.page > hr:nth-of-type(3)              { animation: contentRise 1s ease-out 4.1s both; }
+    main.page > .section-label:nth-of-type(2)  { animation: contentRise 1s ease-out 4.2s both; }
+    main.page > .info-block                    { animation: contentRise 1s ease-out 4.3s both; }
+    main.page > hr:nth-of-type(4)              { animation: contentRise 1s ease-out 4.5s both; }
+    main.page > .section-label:nth-of-type(3)  { animation: contentRise 1s ease-out 4.6s both; }
+    main.page > .invite-link                   { animation: contentRise 1s ease-out 4.7s both; }
+    main.page > .footer-note                   { animation: footerRise 1s ease-out 4.9s both; }
 
     /* ---- FRONT PAGE ADDITIONS ---- */
 
