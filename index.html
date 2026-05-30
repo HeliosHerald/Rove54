@@ -139,6 +139,12 @@
         Find the house of rest and relief.<br>
         On its south flank your clue awaits.
       </p>
+      <div class="hint-wrap">
+        <button class="hint-btn" onclick="toggleHint( + hint_id + )">Need a hint?</button>
+        <p class="hint-text" id="hint_1">
+          [PLACEHOLDER — Gentle nudge for Seal I. You'll fill this in.]
+        </p>
+      </div>
     </div>
     <div class="seal">
       <span class="seal-heading">Seal II</span>
@@ -148,6 +154,12 @@
         Find him and<br>
         don't lose your head.
       </p>
+      <div class="hint-wrap">
+        <button class="hint-btn" onclick="toggleHint( + hint_id + )">Need a hint?</button>
+        <p class="hint-text" id="hint_2">
+          [PLACEHOLDER — Gentle nudge for Seal II. You'll fill this in.]
+        </p>
+      </div>
     </div>
     <div class="seal">
       <span class="seal-heading">Seal III</span>
@@ -157,12 +169,24 @@
         find its sign<br>
         and look behind.
       </p>
+      <div class="hint-wrap">
+        <button class="hint-btn" onclick="toggleHint( + hint_id + )">Need a hint?</button>
+        <p class="hint-text" id="hint_3">
+          [PLACEHOLDER — Gentle nudge for Seal III. You'll fill this in.]
+        </p>
+      </div>
     </div>
     <div class="seal">
       <span class="seal-heading">Seal IV</span>
       <p class="seal-clue">
         [PLACEHOLDER — Seal IV clue not yet provided.]
       </p>
+      <div class="hint-wrap">
+        <button class="hint-btn" onclick="toggleHint( + hint_id + )">Need a hint?</button>
+        <p class="hint-text" id="hint_4">
+          [PLACEHOLDER — Gentle nudge for Seal IV. You'll fill this in.]
+        </p>
+      </div>
     </div>
     <div class="seal">
       <span class="seal-heading">Seal V</span>
@@ -172,6 +196,12 @@
         they stand vigil.<br>
         But everyone gets thirsty.
       </p>
+      <div class="hint-wrap">
+        <button class="hint-btn" onclick="toggleHint( + hint_id + )">Need a hint?</button>
+        <p class="hint-text" id="hint_5">
+          [PLACEHOLDER — Gentle nudge for Seal V. You'll fill this in.]
+        </p>
+      </div>
     </div>
     <div class="seal">
       <span class="seal-heading">Seal VI</span>
@@ -181,6 +211,12 @@
         Under three polarizing colors,<br>
         red, white, and blue.
       </p>
+      <div class="hint-wrap">
+        <button class="hint-btn" onclick="toggleHint( + hint_id + )">Need a hint?</button>
+        <p class="hint-text" id="hint_6">
+          [PLACEHOLDER — Gentle nudge for Seal VI. You'll fill this in.]
+        </p>
+      </div>
     </div>
   </div>
 
@@ -208,6 +244,13 @@
 <canvas id="burst-canvas"></canvas>
 
 <script>
+  /* ---- HINT TOGGLE ---- */
+  function toggleHint(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.classList.toggle('visible');
+  }
+
   /* ---- FADE HELPER ---- */
   function fadeIn(id, duration, targetOpacity) {
     var el = document.getElementById(id);
@@ -285,25 +328,67 @@
     requestAnimationFrame(draw);
   }
 
+  /* ---- VIBRATION ---- */
+  function fireVibration() {
+    try {
+      if (navigator.vibrate) {
+        navigator.vibrate([80, 40, 120]);
+      }
+    } catch(e) {}
+  }
+
+  /* ---- TONE ---- */
+  function fireTone() {
+    try {
+      var AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      var ctx = new AudioContext();
+
+      /* Low resonant drone — two oscillators slightly detuned for depth */
+      var osc1 = ctx.createOscillator();
+      var osc2 = ctx.createOscillator();
+      var gain = ctx.createGain();
+
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(80, ctx.currentTime);
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(81.2, ctx.currentTime); /* slight detune = warmth */
+
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + 0.3);  /* swell in */
+      gain.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 1.2);  /* sustain */
+      gain.gain.linearRampToValueAtTime(0,    ctx.currentTime + 3.0);  /* fade out */
+
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc1.start(ctx.currentTime);
+      osc2.start(ctx.currentTime);
+      osc1.stop(ctx.currentTime + 3.1);
+      osc2.stop(ctx.currentTime + 3.1);
+    } catch(e) {}
+  }
+
   /* ---- TIMELINE ---- */
   /* Burst fires immediately */
-  setTimeout(function() { fireBurst(); },                         80);
+  setTimeout(function() { fireBurst(); fireVibration(); fireTone(); }, 80);
   /* Sigil rises from the burst */
-  setTimeout(function() { fadeIn('sigil', 2200, 0.9); },         300);
+  setTimeout(function() { fadeIn('sigil', 1200, 0.9); },         200);
   /* Content cascades in */
-  setTimeout(function() { fadeIn('el-1',  1200); },              2800);
-  setTimeout(function() { fadeIn('el-2',  1000); },              3200);
-  setTimeout(function() { fadeIn('el-3',  1400); },              3500);
-  setTimeout(function() { fadeIn('el-4',  1000); },              4000);
-  setTimeout(function() { fadeIn('el-5',  1000); },              4200);
-  setTimeout(function() { fadeIn('el-6',  1600); },              4500);
-  setTimeout(function() { fadeIn('el-7',  1000); },              5200);
-  setTimeout(function() { fadeIn('el-8',  1000); },              5400);
-  setTimeout(function() { fadeIn('el-9',  1400); },              5600);
-  setTimeout(function() { fadeIn('el-10', 1000); },              6200);
-  setTimeout(function() { fadeIn('el-11', 1000); },              6400);
-  setTimeout(function() { fadeIn('el-12', 1000); },              6600);
-  setTimeout(function() { fadeIn('el-footer', 1000, 0.5); },     6900);
+  setTimeout(function() { fadeIn('el-1',  800); },               1200);
+  setTimeout(function() { fadeIn('el-2',  700); },               1600);
+  setTimeout(function() { fadeIn('el-3',  900); },               1900);
+  setTimeout(function() { fadeIn('el-4',  700); },               2300);
+  setTimeout(function() { fadeIn('el-5',  700); },               2600);
+  setTimeout(function() { fadeIn('el-6',  1000); },              2900);
+  setTimeout(function() { fadeIn('el-7',  700); },               3500);
+  setTimeout(function() { fadeIn('el-8',  700); },               3800);
+  setTimeout(function() { fadeIn('el-9',  900); },               4000);
+  setTimeout(function() { fadeIn('el-10', 700); },               4600);
+  setTimeout(function() { fadeIn('el-11', 700); },               4800);
+  setTimeout(function() { fadeIn('el-12', 700); },               5000);
+  setTimeout(function() { fadeIn('el-footer', 700, 0.5); },      5300);
 
   /* Fallback — show everything after 10s */
   setTimeout(function() {
