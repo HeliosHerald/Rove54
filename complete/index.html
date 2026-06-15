@@ -6,97 +6,313 @@
   <title>&#x25C6;</title>
   <link rel="stylesheet" href="../style.css">
   <style>
-    .confirmation-complete {
+    /* Progress tracker */
+    .progress-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--dim);
       text-align: center;
-      font-size: 0.95rem;
-      color: var(--ink);
+      width: 100%;
+    }
+
+    .seal-grid {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .seal-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .seal-slot-label {
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .seal-slot-letter {
+      width: 3rem;
+      height: 3.5rem;
+      border: 1px solid var(--dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      position: relative;
+    }
+
+    .seal-slot-letter.unsolved {
+      color: rgba(107,100,82,0.4);
+      font-size: 1.4rem;
+    }
+
+    .seal-slot-letter.solved {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* Complete state */
+    .complete-word {
+      text-align: center;
+      font-size: 3rem;
+      letter-spacing: 0.4em;
+      color: var(--accent);
+      margin: 0.5rem 0;
+    }
+
+    .status-msg {
+      text-align: center;
+      font-style: italic;
+      color: var(--dim);
+      font-size: 0.9rem;
       line-height: 2;
     }
-    .confirmation-complete em {
-      color: var(--accent);
-      font-style: normal;
+    .status-msg em { color: var(--accent); font-style: normal; }
+
+    #burst-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 999;
     }
   </style>
 </head>
 <body>
 
+<canvas id="burst-canvas"></canvas>
+
 <main class="page">
 
-  <img class="sigil" src="../sigil.svg" alt="">
+  <div style="display:flex; flex-direction:column; align-items:center; gap:0;">
+    <img class="sigil" id="sigil" src="../THE_SEAL.png" alt="" style="opacity:0; mix-blend-mode:screen; width:85%; max-width:360px; display:block;">
+    <img src="../ROVE_54_TYPEFACE_LOGO.png" alt="Rove 54" style="opacity:0; width:85%; max-width:360px; display:block; mix-blend-mode:screen; margin-top:-0.5rem;" id="wordmark-img">
+  </div>
+  <hr class="rule" id="el-1" style="opacity:0;">
 
-  <hr class="rule">
+  <!-- Progress tracker — always visible after sigil -->
+  <span class="progress-label" id="el-2" style="opacity:0;">Your seals</span>
 
-  <!-- All 6 found -->
-  <div id="msg-complete" style="display:none; text-align:center;">
-
-    <!-- =====================================================
-         EDIT THIS: congratulatory message in the Order's voice.
-         Solemn, brief, earned. 2-3 sentences.
-         This is the moment of apotheosis. Treat it as such.
-         ===================================================== -->
-    <p class="flavor" style="margin-bottom:2rem;">
-      [PLACEHOLDER — The Order speaks. All six seals are broken.
-      Name what the participant has become. Tell them what comes next.
-      Do not over-explain. Let the weight of the moment do the work.]
-    </p>
-
-    <!-- =====================================================
-         EDIT THIS: replace # with your Discord invite URL
-         ===================================================== -->
-    <a class="invite-link" href="#">Enter the Order</a>
-
+  <div class="seal-grid" id="el-3" style="opacity:0;">
+    <div class="seal-slot">
+      <span class="seal-slot-label">I</span>
+      <div class="seal-slot-letter" id="slot-1">?</div>
+    </div>
+    <div class="seal-slot">
+      <span class="seal-slot-label">II</span>
+      <div class="seal-slot-letter" id="slot-2">?</div>
+    </div>
+    <div class="seal-slot">
+      <span class="seal-slot-label">III</span>
+      <div class="seal-slot-letter" id="slot-3">?</div>
+    </div>
+    <div class="seal-slot">
+      <span class="seal-slot-label">IV</span>
+      <div class="seal-slot-letter" id="slot-4">?</div>
+    </div>
+    <div class="seal-slot">
+      <span class="seal-slot-label">V</span>
+      <div class="seal-slot-letter" id="slot-5">?</div>
+    </div>
+    <div class="seal-slot">
+      <span class="seal-slot-label">VI</span>
+      <div class="seal-slot-letter" id="slot-6">?</div>
+    </div>
   </div>
 
-  <!-- Seals still missing -->
-  <div id="msg-incomplete" style="display:none;">
-    <p class="seal-status" id="seal-text"></p>
+  <hr class="rule" id="el-4" style="opacity:0;">
+
+  <!-- Complete state -->
+  <div id="msg-complete" style="display:none; text-align:center; opacity:0;">
+    <p class="status-msg" style="margin-bottom:1.5rem;">
+      <!-- =====================================================
+           EDIT THIS: congratulatory message in the Order's voice.
+           Solemn, brief, earned. 2-3 sentences.
+           ===================================================== -->
+      [PLACEHOLDER — The Order speaks. All six seals are broken.
+      Name what the participant has become. Tell them what comes next.]
+    </p>
+    <a class="invite-link" href="#">Enter the Order</a>
+  </div>
+
+  <!-- Incomplete state -->
+  <div id="msg-incomplete" style="opacity:0;">
+    <p class="status-msg" id="seal-text"></p>
+    <a class="return-link" href="../" style="display:block; text-align:center; margin-top:1rem; color:var(--dim); text-decoration:none; font-size:0.65rem; letter-spacing:0.25em; text-transform:uppercase;">&#x2190; Return to the Six Seals</a>
   </div>
 
 </main>
 
 <script>
+  /* Cookie definitions — must match location pages exactly */
   var SEALS = [
-    "location_1",
-    "location_2",
-    "location_3",
-    "location_4",
-    "location_5",
-    "location_6"
+    { cookie: "location_1", letterCookie: "location_1_letter", slot: "slot-1" },
+    { cookie: "location_2", letterCookie: "location_2_letter", slot: "slot-2" },
+    { cookie: "location_3", letterCookie: "location_3_letter", slot: "slot-3" },
+    { cookie: "location_4", letterCookie: "location_4_letter", slot: "slot-4" },
+    { cookie: "location_5", letterCookie: "location_5_letter", slot: "slot-5" },
+    { cookie: "location_6", letterCookie: null,                slot: "slot-6" },
   ];
 
-  function getCookies() {
-    var result = {};
-    document.cookie.split(";").forEach(function(c) {
-      var parts = c.trim().split("=");
-      result[parts[0]] = parts[1];
-    });
-    return result;
-  }
-
-  function check() {
-    var cookies = getCookies();
-    var missing = SEALS.filter(function(s) { return cookies[s] !== "found"; });
-    var remaining = missing.length;
-
-    if (remaining === 0) {
-      document.getElementById("msg-complete").style.display = "block";
-    } else {
-      document.getElementById("msg-incomplete").style.display = "block";
-
-      /* =====================================================
-         EDIT THIS: the Order's voice when seals are missing.
-         The number of remaining seals is injected automatically.
-         ===================================================== */
-      var word = remaining === 1 ? "seal remains unbroken" : "seals remain unbroken";
-      document.getElementById("seal-text").innerHTML =
-        "[PLACEHOLDER — The Order speaks of incompletion. Something terse and oracular.]" +
-        "<br><br>" +
-        remaining + " " + word + ".";
+  function getCookieVal(name) {
+    var parts = document.cookie.split(';');
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i].trim().split('=');
+      if (p[0] === name) return p[1] || '';
     }
+    return null;
   }
 
-  check();
+  function fadeIn(id, duration, targetOpacity) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var op = parseFloat(el.style.opacity) || 0;
+    var target = targetOpacity || 1;
+    var step = (target - op) / (duration / 16);
+    var timer = setInterval(function() {
+      op += step;
+      if (op >= target) { op = target; clearInterval(timer); }
+      el.style.opacity = op;
+    }, 16);
+  }
+
+  function fireBurst() {
+    var canvas = document.getElementById('burst-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var cx = canvas.width / 2, cy = canvas.height / 2;
+    var rings = [
+      { r: 0, maxR: Math.max(canvas.width, canvas.height) * 0.9, speed: 5.5, alpha: 0.55, width: 2.5 },
+      { r: 0, maxR: Math.max(canvas.width, canvas.height) * 0.7, speed: 3.8, alpha: 0.35, width: 1.5 },
+      { r: 0, maxR: Math.max(canvas.width, canvas.height) * 0.5, speed: 2.5, alpha: 0.20, width: 1.0 }
+    ];
+    var bloom = { alpha: 0.45 };
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (bloom.alpha > 0) {
+        var grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 120);
+        grad.addColorStop(0,   'rgba(255,210,80,' + bloom.alpha + ')');
+        grad.addColorStop(0.4, 'rgba(200,146,42,' + bloom.alpha * 0.6 + ')');
+        grad.addColorStop(1,   'rgba(200,146,42,0)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        bloom.alpha -= 0.018;
+      }
+      var allDone = true;
+      rings.forEach(function(ring) {
+        ring.r += ring.speed;
+        var alpha = ring.alpha * (1 - ring.r / ring.maxR);
+        if (alpha > 0.001) {
+          allDone = false;
+          ctx.beginPath();
+          ctx.arc(cx, cy, ring.r, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(200,146,42,' + alpha + ')';
+          ctx.lineWidth = ring.width;
+          ctx.stroke();
+        }
+      });
+      if (!allDone || bloom.alpha > 0) requestAnimationFrame(draw);
+      else ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    requestAnimationFrame(draw);
+  }
+
+  /* ---- CHECK SEALS & POPULATE SLOTS ---- */
+  var solvedCount = 0;
+  SEALS.forEach(function(seal, idx) {
+    var solved = getCookieVal(seal.cookie) === 'found';
+    var slot = document.getElementById(seal.slot);
+    if (!slot) return;
+
+    if (solved) {
+      solvedCount++;
+      slot.classList.add('solved');
+      slot.classList.remove('unsolved');
+
+      if (seal.letterCookie) {
+        var letter = getCookieVal(seal.letterCookie);
+        slot.textContent = letter || '✓';
+      } else {
+        /* Seal 6 — box location found */
+        slot.textContent = '✓';
+      }
+    } else {
+      slot.classList.add('unsolved');
+      slot.textContent = '?';
+    }
+  });
+
+  var allSolved = solvedCount === SEALS.length;
+
+  /* ---- COMPLETION EVENT LOG ---- */
+  /* Fires once per device when the hunt is first completed. */
+  function logEvent(name) {
+    var tries = 0;
+    var t = setInterval(function() {
+      tries++;
+      if (window.goatcounter && window.goatcounter.count) {
+        clearInterval(t);
+        window.goatcounter.count({ path: name, title: name, event: true });
+      } else if (tries > 50) {
+        clearInterval(t);
+      }
+    }, 100);
+  }
+
+  if (allSolved && document.cookie.indexOf("hunt_complete_logged=1") === -1) {
+    document.cookie = "hunt_complete_logged=1; path=/; max-age=" + (60 * 60 * 24 * 365);
+    logEvent("hunt-complete");
+  }
+
+  /* ---- TIMELINE ---- */
+  setTimeout(function() { fireBurst(); }, 80);
+  setTimeout(function() { fadeIn('sigil', 1200, 0.9); },  200);
+  setTimeout(function() { fadeIn('el-1',  600); },        1000);
+  setTimeout(function() { fadeIn('el-2',  700); },        1200);
+  setTimeout(function() { fadeIn('el-3', 1000); },        1500);
+  setTimeout(function() { fadeIn('el-4',  600); },        2200);
+
+  setTimeout(function() {
+    if (allSolved) {
+      var el = document.getElementById('msg-complete');
+      el.style.display = 'block';
+      fadeIn('msg-complete', 1200);
+    } else {
+      var remaining = SEALS.length - solvedCount;
+      var word = remaining === 1 ? 'seal remains unbroken' : 'seals remain unbroken';
+      document.getElementById('seal-text').innerHTML =
+        /* =====================================================
+           EDIT THIS: the Order's voice when seals are missing.
+           ===================================================== */
+        '[PLACEHOLDER — The Order speaks of incompletion.]' +
+        '<br><br>' + remaining + ' ' + word + '.';
+      fadeIn('msg-incomplete', 1000);
+    }
+  }, 2500);
+
+  /* Fallback */
+  setTimeout(function() {
+    ['sigil','el-1','el-2','el-3','el-4','msg-complete','msg-incomplete'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el && el.style.opacity < 1) el.style.opacity = 1;
+    });
+    document.getElementById('sigil').style.opacity = 0.9;
+  }, 8000);
 </script>
 
+
+<script data-goatcounter="https://tristanmisten.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

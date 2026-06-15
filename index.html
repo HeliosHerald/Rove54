@@ -15,6 +15,7 @@
       color: var(--dim);
       margin-top: 0.5rem;
     }
+    #el-1 { margin-top: 0.5rem; }
     .intro {
       text-align: center;
       font-size: 0.95rem;
@@ -92,6 +93,45 @@
     }
     .info-block a:hover { border-bottom-color: var(--accent); }
 
+
+    /* ---- HINT ---- */
+    .hint-wrap {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .hint-toggle {
+      background: none;
+      border: none;
+      font-family: 'IM Fell English', Georgia, serif;
+      font-size: 0.7rem;
+      font-style: italic;
+      color: rgba(107,100,82,0.45);
+      cursor: pointer;
+      padding: 0;
+      letter-spacing: 0.05em;
+      transition: color 0.3s;
+      display: inline-block;
+    }
+    .hint-toggle:hover { color: var(--dim); }
+    .hint-toggle::before { content: "— "; }
+    .hint-toggle::after { content: " —"; }
+    .hint-text {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-out, opacity 0.4s ease-out;
+      opacity: 0;
+      margin-top: 0;
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--dim);
+      line-height: 1.7;
+    }
+    .hint-text.visible {
+      max-height: 10rem;
+      opacity: 1;
+      margin-top: 0.75rem;
+    }
+
     /* ---- SIGIL WRAP ---- */
     #sigil-wrap {
       display: flex;
@@ -113,18 +153,35 @@
 
 <main class="page">
 
-  <div id="sigil-wrap">
-    <img class="sigil" id="sigil" src="sigil.svg" alt="" style="opacity:0;">
+  <div id="sigil-wrap" style="display:flex; flex-direction:column; align-items:center; gap:0;">
+    <img class="sigil" id="sigil" src="THE_SEAL.png" alt="" style="opacity:0; mix-blend-mode:screen; width:85%; max-width:420px; display:block;">
+    <img id="el-1" src="ROVE_54_TYPEFACE_LOGO.png" alt="Rove 54" style="opacity:0; width:85%; max-width:420px; display:block; mix-blend-mode:screen; margin-top:-0.5rem;">
   </div>
-
-  <p class="wordmark" id="el-1" style="opacity:0;">Rove 54</p>
   <hr class="rule" id="el-2" style="opacity:0;">
 
   <p class="intro" id="el-3" style="opacity:0;">
-    [PLACEHOLDER — Opening address from the Order. Introduce the challenge
-    without explaining it. The participant should feel summoned, not instructed.
-    3–5 sentences. Use &lt;em&gt; tags sparingly around any single phrase
-    you want to glow gold.]
+    Rarely does the eye light on a thing that demands pause. You stopped and wondered, and now you are here. Receive this secret, receive this pledge.
+    <br><br>
+    Hidden in this neighborhood is a treasure. It contains an <em>invitation</em> and a <em>passage</em>.
+    <br><br>
+    You are now a <em>rover</em>, guided by promise and aspiration. You will discover things obscure.
+    <br><br>
+    This ordeal can be completed without exertion in an afternoon, but bestows benefits eternal.
+    <br>
+    <br>
+    <span style="display:block; width:60%; margin:0 auto; border-top:1px solid var(--dim); opacity:0.3;"></span>
+    <br>
+    This is a scavenger hunt hidden in Adams Morgan.
+    <br><br>
+    There are six seals hidden around the neighborhood. Seals 1–5 reveal a letter. These five letters spell a word — that word is your key. Seal 6 reveals a location.
+    <br><br>
+    A lock, a box, and <em>something worth finding.</em>
+    <br><br>
+    Each seal is four lines. The first half is vast; the second half is precise.
+    <br><br>
+    The first individual to discover this treasure will receive an additional reward: a certificate for the purchase of books.
+    <br><br>
+    You can track your progress at the <em>present your seals</em> button at the bottom of this page.
   </p>
 
   <hr class="rule" id="el-4" style="opacity:0;">
@@ -139,6 +196,12 @@
         Find the house of rest and relief.<br>
         On its south flank your clue awaits.
       </p>
+      <div class="hint-wrap">
+        <button class="hint-toggle" onclick="toggleHint('hint_1')">a hint</button>
+        <p class="hint-text" id="hint_1">
+          [PLACEHOLDER — Gentle nudge for Seal I. You'll fill this in.]
+        </p>
+      </div>
     </div>
     <div class="seal">
       <span class="seal-heading">Seal II</span>
@@ -148,6 +211,12 @@
         Find him and<br>
         don't lose your head.
       </p>
+      <div class="hint-wrap">
+        <button class="hint-toggle" onclick="toggleHint('hint_2')">a hint</button>
+        <p class="hint-text" id="hint_2">
+          [PLACEHOLDER — Gentle nudge for Seal II. You'll fill this in.]
+        </p>
+      </div>
     </div>
     <div class="seal">
       <span class="seal-heading">Seal III</span>
@@ -157,12 +226,27 @@
         find its sign<br>
         and look behind.
       </p>
+      <div class="hint-wrap">
+        <button class="hint-toggle" onclick="toggleHint('hint_3')">a hint</button>
+        <p class="hint-text" id="hint_3">
+          [PLACEHOLDER — Gentle nudge for Seal III. You'll fill this in.]
+        </p>
+      </div>
     </div>
     <div class="seal">
       <span class="seal-heading">Seal IV</span>
       <p class="seal-clue">
-        [PLACEHOLDER — Seal IV clue not yet provided.]
+        At the lively corner we all know —<br>
+        Find the shape of the rainbow.<br>
+        Walk up to the high ground,<br>
+        Look out over Admo.
       </p>
+      <div class="hint-wrap">
+        <button class="hint-toggle" onclick="toggleHint('hint_4')">a hint</button>
+        <p class="hint-text" id="hint_4">
+          [PLACEHOLDER — Gentle nudge for Seal IV. You'll fill this in.]
+        </p>
+      </div>
     </div>
     <div class="seal">
       <span class="seal-heading">Seal V</span>
@@ -172,6 +256,12 @@
         they stand vigil.<br>
         But everyone gets thirsty.
       </p>
+      <div class="hint-wrap">
+        <button class="hint-toggle" onclick="toggleHint('hint_5')">a hint</button>
+        <p class="hint-text" id="hint_5">
+          [PLACEHOLDER — Gentle nudge for Seal V. You'll fill this in.]
+        </p>
+      </div>
     </div>
     <div class="seal">
       <span class="seal-heading">Seal VI</span>
@@ -181,6 +271,12 @@
         Under three polarizing colors,<br>
         red, white, and blue.
       </p>
+      <div class="hint-wrap">
+        <button class="hint-toggle" onclick="toggleHint('hint_6')">a hint</button>
+        <p class="hint-text" id="hint_6">
+          [PLACEHOLDER — Gentle nudge for Seal VI. You'll fill this in.]
+        </p>
+      </div>
     </div>
   </div>
 
@@ -194,7 +290,7 @@
       <li>The seals may be found in any order. No sequence is required.</li>
       <li>Each seal is marked with the Order's sigil. Hold your phone to it.</li>
       <li>The final gate will not open until all six seals are broken.</li>
-      <li>Questions, problems, or found something broken? Write to <a href="mailto:[PLACEHOLDER@email.com]">[PLACEHOLDER — your contact email]</a></li>
+      <li>Questions, problems, or found something broken? Write to <a href="mailto:Rove54.quest@gmail.com">Rove54.quest@gmail.com</a></li>
     </ul>
   </div>
 
@@ -208,6 +304,13 @@
 <canvas id="burst-canvas"></canvas>
 
 <script>
+  /* ---- HINT TOGGLE ---- */
+  function toggleHint(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.classList.toggle('visible');
+  }
+
   /* ---- FADE HELPER ---- */
   function fadeIn(id, duration, targetOpacity) {
     var el = document.getElementById(id);
@@ -285,25 +388,67 @@
     requestAnimationFrame(draw);
   }
 
+  /* ---- VIBRATION ---- */
+  function fireVibration() {
+    try {
+      if (navigator.vibrate) {
+        navigator.vibrate([80, 40, 120]);
+      }
+    } catch(e) {}
+  }
+
+  /* ---- TONE ---- */
+  function fireTone() {
+    try {
+      var AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      var ctx = new AudioContext();
+
+      /* Low resonant drone — two oscillators slightly detuned for depth */
+      var osc1 = ctx.createOscillator();
+      var osc2 = ctx.createOscillator();
+      var gain = ctx.createGain();
+
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(80, ctx.currentTime);
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(81.2, ctx.currentTime); /* slight detune = warmth */
+
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + 0.3);  /* swell in */
+      gain.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 1.2);  /* sustain */
+      gain.gain.linearRampToValueAtTime(0,    ctx.currentTime + 3.0);  /* fade out */
+
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc1.start(ctx.currentTime);
+      osc2.start(ctx.currentTime);
+      osc1.stop(ctx.currentTime + 3.1);
+      osc2.stop(ctx.currentTime + 3.1);
+    } catch(e) {}
+  }
+
   /* ---- TIMELINE ---- */
   /* Burst fires immediately */
-  setTimeout(function() { fireBurst(); },                         80);
+  setTimeout(function() { fireBurst(); fireVibration(); fireTone(); }, 80);
   /* Sigil rises from the burst */
-  setTimeout(function() { fadeIn('sigil', 2200, 0.9); },         300);
+  setTimeout(function() { fadeIn('sigil', 1000, 0.9); },         150);
   /* Content cascades in */
-  setTimeout(function() { fadeIn('el-1',  1200); },              2800);
-  setTimeout(function() { fadeIn('el-2',  1000); },              3200);
-  setTimeout(function() { fadeIn('el-3',  1400); },              3500);
-  setTimeout(function() { fadeIn('el-4',  1000); },              4000);
-  setTimeout(function() { fadeIn('el-5',  1000); },              4200);
-  setTimeout(function() { fadeIn('el-6',  1600); },              4500);
-  setTimeout(function() { fadeIn('el-7',  1000); },              5200);
-  setTimeout(function() { fadeIn('el-8',  1000); },              5400);
-  setTimeout(function() { fadeIn('el-9',  1400); },              5600);
-  setTimeout(function() { fadeIn('el-10', 1000); },              6200);
-  setTimeout(function() { fadeIn('el-11', 1000); },              6400);
-  setTimeout(function() { fadeIn('el-12', 1000); },              6600);
-  setTimeout(function() { fadeIn('el-footer', 1000, 0.5); },     6900);
+  setTimeout(function() { fadeIn('el-1',  600); },               400);
+  setTimeout(function() { fadeIn('el-2',  600); },               700);
+  setTimeout(function() { fadeIn('el-3',  700); },               950);
+  setTimeout(function() { fadeIn('el-4',  600); },               1150);
+  setTimeout(function() { fadeIn('el-5',  600); },               1350);
+  setTimeout(function() { fadeIn('el-6',  800); },               1550);
+  setTimeout(function() { fadeIn('el-7',  600); },               2000);
+  setTimeout(function() { fadeIn('el-8',  600); },               2200);
+  setTimeout(function() { fadeIn('el-9',  700); },               2400);
+  setTimeout(function() { fadeIn('el-10', 600); },               2800);
+  setTimeout(function() { fadeIn('el-11', 600); },               3000);
+  setTimeout(function() { fadeIn('el-12', 600); },               3200);
+  setTimeout(function() { fadeIn('el-footer', 600, 0.5); },      3500);
 
   /* Fallback — show everything after 10s */
   setTimeout(function() {
@@ -318,5 +463,7 @@
   }, 10000);
 </script>
 
+
+<script data-goatcounter="https://tristanmisten.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
