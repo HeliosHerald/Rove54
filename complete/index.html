@@ -94,7 +94,7 @@
 
 <main class="page">
 
-  <img class="sigil" id="sigil" src="../sigil.svg" alt="" style="opacity:0;">
+  <img class="sigil" id="sigil" src="../THE_SEAL.png" alt="" style="opacity:0; mix-blend-mode: screen;">
   <hr class="rule" id="el-1" style="opacity:0;">
 
   <!-- Progress tracker — always visible after sigil -->
@@ -252,6 +252,26 @@
   });
 
   var allSolved = solvedCount === SEALS.length;
+
+  /* ---- COMPLETION EVENT LOG ---- */
+  /* Fires once per device when the hunt is first completed. */
+  function logEvent(name) {
+    var tries = 0;
+    var t = setInterval(function() {
+      tries++;
+      if (window.goatcounter && window.goatcounter.count) {
+        clearInterval(t);
+        window.goatcounter.count({ path: name, title: name, event: true });
+      } else if (tries > 50) {
+        clearInterval(t);
+      }
+    }, 100);
+  }
+
+  if (allSolved && document.cookie.indexOf("hunt_complete_logged=1") === -1) {
+    document.cookie = "hunt_complete_logged=1; path=/; max-age=" + (60 * 60 * 24 * 365);
+    logEvent("hunt-complete");
+  }
 
   /* ---- TIMELINE ---- */
   setTimeout(function() { fireBurst(); }, 80);
