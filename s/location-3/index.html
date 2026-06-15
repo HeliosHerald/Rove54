@@ -81,7 +81,7 @@
 
 <main class="page">
 
-  <img class="sigil" id="sigil" src="../../sigil.svg" alt="" style="opacity:0;">
+  <img class="sigil" id="sigil" src="../../THE_SEAL.png" alt="" style="opacity:0; mix-blend-mode: screen;">
   <hr class="rule" id="el-1" style="opacity:0;">
 
   <!-- Admo trivia -->
@@ -116,8 +116,28 @@
 </main>
 
 <script>
+  var firstBreak = document.cookie.indexOf("location_3=found") === -1;
   document.cookie = "location_3=found; path=/; max-age=" + (60 * 60 * 24 * 365);
   document.cookie = "location_3_letter=L; path=/; max-age=" + (60 * 60 * 24 * 365);
+
+
+  /* ---- TAP EVENT LOG ---- */
+  /* Fires a GoatCounter event only on FIRST break of this seal on this device.
+     Shows up in the dashboard as a path like "seal-1-first-break" with timestamp. */
+  function logEvent(name) {
+    var tries = 0;
+    var t = setInterval(function() {
+      tries++;
+      if (window.goatcounter && window.goatcounter.count) {
+        clearInterval(t);
+        window.goatcounter.count({ path: name, title: name, event: true });
+      } else if (tries > 50) {
+        clearInterval(t);
+      }
+    }, 100);
+  }
+
+  if (firstBreak) { logEvent("seal-3-first-break"); }
 
   function fadeIn(id, duration, targetOpacity) {
     var el = document.getElementById(id);
