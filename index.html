@@ -147,6 +147,50 @@
       pointer-events: none;
       z-index: 999;
     }
+
+    /* ---- FOOTER ---- */
+    .footer-block {
+      text-align: center;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .footer-credit {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--dim);
+      font-style: italic;
+      margin: 0;
+    }
+    .footer-credit a {
+      color: rgba(200, 146, 42, 0.65);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(200, 146, 42, 0.2);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .footer-credit a:hover {
+      color: var(--accent);
+      border-bottom-color: rgba(200, 146, 42, 0.5);
+    }
+    .footer-contact {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--dim);
+      opacity: 0.65;
+      margin: 0;
+    }
+    .footer-contact a {
+      color: rgba(212, 201, 168, 0.7);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(212, 201, 168, 0.2);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .footer-contact a:hover {
+      color: var(--ink);
+      border-bottom-color: rgba(212, 201, 168, 0.5);
+    }
   </style>
 </head>
 <body>
@@ -178,8 +222,6 @@
     A lock, a box, and <em>something worth finding.</em>
     <br><br>
     Each seal is four lines. The first half is vast; the second half is precise.
-    <br><br>
-    The first individual to discover this treasure will receive an additional reward: a certificate for the purchase of books.
     <br><br>
     You can track your progress at the <em>present your seals</em> button at the bottom of this page.
   </p>
