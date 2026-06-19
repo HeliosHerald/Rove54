@@ -51,6 +51,20 @@
       position: relative;
     }
 
+    .seal-slot-letter.coord-slot {
+      font-size: 0.55rem;
+      line-height: 1.2;
+      letter-spacing: 0;
+      padding: 0.3rem;
+      text-align: center;
+      flex-direction: column;
+    }
+    .coord-lat, .coord-lon {
+      display: block;
+      font-family: 'Cinzel', 'IM Fell English', serif;
+      color: var(--accent);
+      font-size: 0.55rem;
+    }
     .seal-slot-letter.unsolved {
       color: rgba(107,100,82,0.4);
       font-size: 1.4rem;
@@ -146,7 +160,6 @@ Well done. You have uncovered all six seals.
       <br><br>
       A word and a location. Go forth.
     </p>
-    <a class="invite-link" href="#">Enter the Order</a>
   </div>
 
   <!-- Incomplete state -->
@@ -249,8 +262,15 @@ Well done. You have uncovered all six seals.
         var letter = getCookieVal(seal.letterCookie);
         slot.textContent = letter || '✓';
       } else {
-        /* Seal 6 — box location found */
-        slot.textContent = '✓';
+        /* Seal 6 — display the coordinates of the chest */
+        var lat = getCookieVal('signum_lat');
+        var lon = getCookieVal('signum_lon');
+        if (lat && lon) {
+          slot.innerHTML = '<span class="coord-lat">' + lat + '</span><span class="coord-lon">' + lon + '</span>';
+          slot.classList.add('coord-slot');
+        } else {
+          slot.textContent = '✓';
+        }
       }
     } else {
       slot.classList.add('unsolved');
