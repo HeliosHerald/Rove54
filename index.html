@@ -15,7 +15,6 @@
       color: var(--dim);
       margin-top: 0.5rem;
     }
-    #el-1 { margin-top: 0.5rem; }
     .intro {
       text-align: center;
       font-size: 0.95rem;
@@ -147,83 +146,24 @@
       pointer-events: none;
       z-index: 999;
     }
-
-    /* ---- FOOTER ---- */
-    .footer-block {
-      text-align: center;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-    .footer-credit {
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      color: var(--dim);
-      font-style: italic;
-      margin: 0;
-    }
-    .footer-credit a {
-      color: rgba(200, 146, 42, 0.65);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(200, 146, 42, 0.2);
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .footer-credit a:hover {
-      color: var(--accent);
-      border-bottom-color: rgba(200, 146, 42, 0.5);
-    }
-    .footer-contact {
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: var(--dim);
-      opacity: 0.65;
-      margin: 0;
-    }
-    .footer-contact a {
-      color: rgba(212, 201, 168, 0.7);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(212, 201, 168, 0.2);
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .footer-contact a:hover {
-      color: var(--ink);
-      border-bottom-color: rgba(212, 201, 168, 0.5);
-    }
   </style>
 </head>
 <body>
 
 <main class="page">
 
-    <div id="sigil-wrap" style="display:flex; flex-direction:column; align-items:center; gap:0; width:100%;">
-    <img class="sigil" id="sigil" src="THE_SEAL.png" alt="" style="opacity:0; mix-blend-mode:screen; width:auto; max-width:340px; height:auto; display:block;">
-    <img id="el-1" src="ROVE_54_TYPEFACE_LOGO.png" alt="Rove 54" style="opacity:0; mix-blend-mode:screen; width:auto; max-width:340px; height:auto; display:block; margin-top:-0.75rem;">
+  <div id="sigil-wrap">
+    <img class="sigil" id="sigil" src="sigil.svg" alt="" style="opacity:0;">
   </div>
+
+  <p class="wordmark" id="el-1" style="opacity:0;">Rove 54</p>
   <hr class="rule" id="el-2" style="opacity:0;">
 
   <p class="intro" id="el-3" style="opacity:0;">
-    Rarely does the eye light on a thing that demands pause. You stopped and wondered, and now you are here. Receive this secret, receive this pledge.
-    <br><br>
-    Hidden in this neighborhood is a treasure. It contains an <em>invitation</em> and a <em>passage</em>.
-    <br><br>
-    You are now a <em>rover</em>, guided by promise and aspiration. You will discover things obscure.
-    <br><br>
-    This ordeal can be completed without exertion in an afternoon, but bestows benefits eternal.
-    <br>
-    <br>
-    <span style="display:block; width:60%; margin:0 auto; border-top:1px solid var(--dim); opacity:0.3;"></span>
-    <br>
-    This is a scavenger hunt hidden in Adams Morgan.
-    <br><br>
-    There are six seals hidden around the neighborhood. Seals 1–5 reveal a letter. These five letters spell a word — that word is your key. Seal 6 reveals a location.
-    <br><br>
-    A lock, a box, and <em>something worth finding.</em>
-    <br><br>
-    Each seal is four lines. The first half is vast; the second half is precise.
-    <br><br>
-    You can track your progress at the <em>present your seals</em> button at the bottom of this page.
+    [PLACEHOLDER — Opening address from the Order. Introduce the challenge
+    without explaining it. The participant should feel summoned, not instructed.
+    3–5 sentences. Use &lt;em&gt; tags sparingly around any single phrase
+    you want to glow gold.]
   </p>
 
   <hr class="rule" id="el-4" style="opacity:0;">
@@ -241,7 +181,7 @@
       <div class="hint-wrap">
         <button class="hint-toggle" onclick="toggleHint('hint_1')">a hint</button>
         <p class="hint-text" id="hint_1">
-          Every park must have a building like this, by law.
+          [PLACEHOLDER — Gentle nudge for Seal I. You'll fill this in.]
         </p>
       </div>
     </div>
@@ -249,14 +189,14 @@
       <span class="seal-heading">Seal II</span>
       <p class="seal-clue">
         The father of geometry<br>
-        loves his street.<br>
-        He shaped a metal man;<br>
-        It's about time you meet.
+        shaped a metal man.<br>
+        Find him and<br>
+        don't lose your head.
       </p>
       <div class="hint-wrap">
         <button class="hint-toggle" onclick="toggleHint('hint_2')">a hint</button>
         <p class="hint-text" id="hint_2">
-          Who was the father of geometry? A nearby street bears his name.
+          [PLACEHOLDER — Gentle nudge for Seal II. You'll fill this in.]
         </p>
       </div>
     </div>
@@ -264,29 +204,26 @@
       <span class="seal-heading">Seal III</span>
       <p class="seal-clue">
         Near unity —<br>
-        a building named by two points.<br>
-        Find its sign<br>
+        between two points,<br>
+        find its sign<br>
         and look behind.
       </p>
       <div class="hint-wrap">
         <button class="hint-toggle" onclick="toggleHint('hint_3')">a hint</button>
         <p class="hint-text" id="hint_3">
-          "Two points" is not a physical characteristic. What do two points create?
+          [PLACEHOLDER — Gentle nudge for Seal III. You'll fill this in.]
         </p>
       </div>
     </div>
     <div class="seal">
       <span class="seal-heading">Seal IV</span>
       <p class="seal-clue">
-        At the lively corner we all know —<br>
-        Find the shape of the rainbow.<br>
-        Walk up to the high ground,<br>
-        Look out over Admo.
+        [PLACEHOLDER — Seal IV clue not yet provided.]
       </p>
       <div class="hint-wrap">
         <button class="hint-toggle" onclick="toggleHint('hint_4')">a hint</button>
         <p class="hint-text" id="hint_4">
-          It's adjacent to the intersection of Admo's two busiest streets.
+          [PLACEHOLDER — Gentle nudge for Seal IV. You'll fill this in.]
         </p>
       </div>
     </div>
@@ -301,22 +238,22 @@
       <div class="hint-wrap">
         <button class="hint-toggle" onclick="toggleHint('hint_5')">a hint</button>
         <p class="hint-text" id="hint_5">
-          Their garage holds big trucks.
+          [PLACEHOLDER — Gentle nudge for Seal V. You'll fill this in.]
         </p>
       </div>
     </div>
     <div class="seal">
       <span class="seal-heading">Seal VI</span>
       <p class="seal-clue">
-        Admo's southwestern green —<br>
+        Admo's western green —<br>
         best under bright blue skies.<br>
         Under three polarizing colors,<br>
-        our allegiance flies.
+        red, white, and blue.
       </p>
       <div class="hint-wrap">
         <button class="hint-toggle" onclick="toggleHint('hint_6')">a hint</button>
         <p class="hint-text" id="hint_6">
-          No hints this time. Trust yourself.
+          [PLACEHOLDER — Gentle nudge for Seal VI. You'll fill this in.]
         </p>
       </div>
     </div>
@@ -332,18 +269,14 @@
       <li>The seals may be found in any order. No sequence is required.</li>
       <li>Each seal is marked with the Order's sigil. Hold your phone to it.</li>
       <li>The final gate will not open until all six seals are broken.</li>
-      <li>Questions, problems, or found something broken? Write to <a href="mailto:Rove54.quest@gmail.com">Rove54.quest@gmail.com</a></li>
+      <li>Questions, problems, or found something broken? Write to <a href="mailto:[PLACEHOLDER@email.com]">[PLACEHOLDER — your contact email]</a></li>
     </ul>
   </div>
 
   <hr class="rule" id="el-10" style="opacity:0;">
   <span class="section-label" id="el-11" style="opacity:0;">When All Six Are Broken</span>
   <a class="invite-link" id="el-12" href="complete/" style="opacity:0;">Present your seals</a>
-  <div class="footer-block" id="el-footer" style="opacity:0;">
-    <p class="footer-note">Rove 54 &nbsp;·&nbsp; Adams Morgan &nbsp;·&nbsp; ◆</p>
-    <p class="footer-credit">Sigil by <a href="https://www.instagram.com/minivan.studio" target="_blank" rel="noopener">@minivan.studio</a></p>
-    <p class="footer-contact">Questions? <a href="mailto:Rove54.quest@gmail.com">Rove54.quest@gmail.com</a></p>
-  </div>
+  <p class="footer-note" id="el-footer" style="opacity:0;">Rove 54 &nbsp;·&nbsp; Adams Morgan &nbsp;·&nbsp; ◆</p>
 
 </main>
 
@@ -505,11 +438,9 @@
       if (el) el.style.opacity = 1;
     });
     var f = document.getElementById('el-footer');
-    if (f) f.style.opacity = 1;
+    if (f) f.style.opacity = 0.5;
   }, 10000);
 </script>
 
-
-<script data-goatcounter="https://tristanmisten.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
