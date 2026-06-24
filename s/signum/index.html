@@ -97,7 +97,7 @@
   <!-- Confirmation -->
   <p class="confirmation" id="el-6" style="opacity:0;">
     The <em>Sixth Seal</em> is broken.<br>
-    Record your letter. Return to the rove.
+    This letter has been recorded. Return to the rove.
   </p>
 
   <!-- Big letter -->
@@ -108,14 +108,16 @@
            EDIT THIS: short blurb in the Order's voice introducing
            the box location. 1-2 sentences.
            ===================================================== -->
-      [PLACEHOLDER — Brief introduction to the chest's location, in the Order's voice.]
+      Follow the path downward. The path is marked by several pipes erupting from the ground, marked with white and red stripes.
+      <br><br>
+      After a few hundred feet, you will encounter a stone stairway. The Rove trove is on the right, next to a tree trunk.
     </p>
     <p style="text-align:center; font-family:'Cinzel',serif; font-size:1.4rem; letter-spacing:0.1em; color:var(--accent); margin-top:1rem; line-height:1.4;">
       <!-- =====================================================
            EDIT THESE: GPS coordinates of the hidden chest.
            Format: 38.9234, -77.0432  (or similar)
            ===================================================== -->
-      [LAT]<br>[LON]
+      38.9213530<br>-77.0485810
     </p>
   </div>
 
@@ -128,8 +130,8 @@
   document.cookie = "signum=found; path=/; max-age=" + (60 * 60 * 24 * 365);
   /* Coordinates of the chest — written as cookies so the complete page can display them.
      EDIT THESE VALUES to match the LAT/LON shown below. */
-  document.cookie = "signum_lat=[LAT]; path=/; max-age=" + (60 * 60 * 24 * 365);
-  document.cookie = "signum_lon=[LON]; path=/; max-age=" + (60 * 60 * 24 * 365);
+  document.cookie = "signum_lat=38.9213530; path=/; max-age=" + (60 * 60 * 24 * 365);
+  document.cookie = "signum_lon=-77.0485810; path=/; max-age=" + (60 * 60 * 24 * 365);
 
 
   /* ---- TAP EVENT LOG ---- */

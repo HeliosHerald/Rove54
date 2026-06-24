@@ -51,6 +51,20 @@
       position: relative;
     }
 
+    .seal-slot-letter.coord-slot {
+      font-size: 0.55rem;
+      line-height: 1.2;
+      letter-spacing: 0;
+      padding: 0.3rem;
+      text-align: center;
+      flex-direction: column;
+    }
+    .coord-lat, .coord-lon {
+      display: block;
+      font-family: 'Cinzel', 'IM Fell English', serif;
+      color: var(--accent);
+      font-size: 0.55rem;
+    }
     .seal-slot-letter.unsolved {
       color: rgba(107,100,82,0.4);
       font-size: 1.4rem;
@@ -94,7 +108,10 @@
 
 <main class="page">
 
-  <img class="sigil" id="sigil" src="../sigil.svg" alt="" style="opacity:0;">
+  <div style="display:flex; flex-direction:column; align-items:center; gap:0; width:100%;">
+    <img class="sigil" id="sigil" src="../THE_SEAL.png" alt="" style="opacity:0; mix-blend-mode:screen; width:auto; max-width:300px; height:auto; display:block;">
+    <img id="wordmark-img" src="../ROVE_54_TYPEFACE_LOGO.png" alt="Rove 54" style="opacity:0; mix-blend-mode:screen; width:auto; max-width:300px; height:auto; display:block; margin-top:-0.75rem;">
+  </div>
   <hr class="rule" id="el-1" style="opacity:0;">
 
   <!-- Progress tracker — always visible after sigil -->
@@ -136,10 +153,19 @@
            EDIT THIS: congratulatory message in the Order's voice.
            Solemn, brief, earned. 2-3 sentences.
            ===================================================== -->
-      [PLACEHOLDER — The Order speaks. All six seals are broken.
-      Name what the participant has become. Tell them what comes next.]
+Well done. You have uncovered all six seals.
+      <br><br>
+      Rearrange the five letters to spell a word — <em>the pointed dagger of a soaring beast</em>.
+      The sixth seal bears the location of a chest.
+      <br><br>
+      A word and a location. Go forth.
     </p>
-    <a class="invite-link" href="#">Enter the Order</a>
+    <hr style="border:none; border-top:1px solid rgba(107,100,82,0.25); width:50%; margin:1.5rem auto;">
+    <p class="status-msg" style="font-size:0.82rem; font-style:italic; color:var(--dim); margin-top:0;">
+      Within the chest you will find envelopes.<br>
+      Take one. Lock the box behind you. Scramble the lock.<br>
+      <em>Leave it as you found it — for those who follow.</em>
+    </p>
   </div>
 
   <!-- Incomplete state -->
@@ -153,12 +179,12 @@
 <script>
   /* Cookie definitions — must match location pages exactly */
   var SEALS = [
-    { cookie: "location_1", letterCookie: "location_1_letter", slot: "slot-1" },
-    { cookie: "location_2", letterCookie: "location_2_letter", slot: "slot-2" },
-    { cookie: "location_3", letterCookie: "location_3_letter", slot: "slot-3" },
-    { cookie: "location_4", letterCookie: "location_4_letter", slot: "slot-4" },
-    { cookie: "location_5", letterCookie: "location_5_letter", slot: "slot-5" },
-    { cookie: "location_6", letterCookie: null,                slot: "slot-6" },
+    { cookie: "vesper",  letterCookie: "vesper_letter",  slot: "slot-1" },
+    { cookie: "calyx",   letterCookie: "calyx_letter",   slot: "slot-2" },
+    { cookie: "umbra",   letterCookie: "umbra_letter",   slot: "slot-3" },
+    { cookie: "limen",   letterCookie: "limen_letter",   slot: "slot-4" },
+    { cookie: "ostium",  letterCookie: "ostium_letter",  slot: "slot-5" },
+    { cookie: "signum",  letterCookie: null,              slot: "slot-6" },
   ];
 
   function getCookieVal(name) {
@@ -242,8 +268,15 @@
         var letter = getCookieVal(seal.letterCookie);
         slot.textContent = letter || '✓';
       } else {
-        /* Seal 6 — box location found */
-        slot.textContent = '✓';
+        /* Seal 6 — display the coordinates of the chest */
+        var lat = getCookieVal('signum_lat');
+        var lon = getCookieVal('signum_lon');
+        if (lat && lon) {
+          slot.innerHTML = '<span class="coord-lat">' + lat + '</span><span class="coord-lon">' + lon + '</span>';
+          slot.classList.add('coord-slot');
+        } else {
+          slot.textContent = '✓';
+        }
       }
     } else {
       slot.classList.add('unsolved');
@@ -253,9 +286,29 @@
 
   var allSolved = solvedCount === SEALS.length;
 
+  /* ---- COMPLETION EVENT LOG ---- */
+  /* Fires once per device when the hunt is first completed. */
+  function logEvent(name) {
+    var tries = 0;
+    var t = setInterval(function() {
+      tries++;
+      if (window.goatcounter && window.goatcounter.count) {
+        clearInterval(t);
+        window.goatcounter.count({ path: name, title: name, event: true });
+      } else if (tries > 50) {
+        clearInterval(t);
+      }
+    }, 100);
+  }
+
+  if (allSolved && document.cookie.indexOf("hunt_complete_logged=1") === -1) {
+    document.cookie = "hunt_complete_logged=1; path=/; max-age=" + (60 * 60 * 24 * 365);
+    logEvent("hunt-complete");
+  }
+
   /* ---- TIMELINE ---- */
   setTimeout(function() { fireBurst(); }, 80);
-  setTimeout(function() { fadeIn('sigil', 1200, 0.9); },  200);
+  setTimeout(function() { fadeIn('sigil', 1200, 0.9); fadeIn('wordmark-img', 1200, 1); },  200);
   setTimeout(function() { fadeIn('el-1',  600); },        1000);
   setTimeout(function() { fadeIn('el-2',  700); },        1200);
   setTimeout(function() { fadeIn('el-3', 1000); },        1500);
@@ -268,20 +321,18 @@
       fadeIn('msg-complete', 1200);
     } else {
       var remaining = SEALS.length - solvedCount;
-      var word = remaining === 1 ? 'seal remains unbroken' : 'seals remain unbroken';
       document.getElementById('seal-text').innerHTML =
         /* =====================================================
            EDIT THIS: the Order's voice when seals are missing.
            ===================================================== */
-        '[PLACEHOLDER — The Order speaks of incompletion.]' +
-        '<br><br>' + remaining + ' ' + word + '.';
+        'You are missing ' + remaining + ' ' + (remaining === 1 ? 'seal' : 'seals') + '. Return when all six seals have been tapped to uncover the final step.';
       fadeIn('msg-incomplete', 1000);
     }
   }, 2500);
 
   /* Fallback */
   setTimeout(function() {
-    ['sigil','el-1','el-2','el-3','el-4','msg-complete','msg-incomplete'].forEach(function(id) {
+    ['sigil','wordmark-img','el-1','el-2','el-3','el-4','msg-complete','msg-incomplete'].forEach(function(id) {
       var el = document.getElementById(id);
       if (el && el.style.opacity < 1) el.style.opacity = 1;
     });
@@ -289,5 +340,7 @@
   }, 8000);
 </script>
 
+
+<script data-goatcounter="https://tristanmisten.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
