@@ -97,31 +97,9 @@
   <!-- Confirmation -->
   <p class="confirmation" id="el-6" style="opacity:0;">
     The <em>Sixth Seal</em> is broken.<br>
-    This letter has been recorded. Return to the rove.
+    All seals have been recorded.<br>
+    Forwarding to your progress page&hellip;
   </p>
-
-  <!-- Big letter -->
-  <div id="el-7" style="opacity:0;">
-    <span class="seal-letter-label">The chest awaits</span>
-    <p class="flavor" style="margin-top:0.75rem; text-align:center;">
-      <!-- =====================================================
-           EDIT THIS: short blurb in the Order's voice introducing
-           the box location. 1-2 sentences.
-           ===================================================== -->
-      Follow the path downward. The path is marked by several pipes erupting from the ground, marked with white and red stripes.
-      <br><br>
-      After a few hundred feet, you will encounter a stone stairway. The Rove trove is on the right, next to a tree trunk.
-    </p>
-    <p style="text-align:center; font-family:'Cinzel',serif; font-size:1.4rem; letter-spacing:0.1em; color:var(--accent); margin-top:1rem; line-height:1.4;">
-      <!-- =====================================================
-           EDIT THESE: GPS coordinates of the hidden chest.
-           Format: 38.9234, -77.0432  (or similar)
-           ===================================================== -->
-      38.9213530<br>-77.0485810
-    </p>
-  </div>
-
-  <a class="return-link" id="el-8" href="../../" style="opacity:0;">&#x2190; Return to the Six Seals</a>
 
 </main>
 
@@ -243,6 +221,11 @@
   setTimeout(function() { fadeIn('el-6',  900); },         2700);
   setTimeout(function() { fadeIn('el-7', 1400); },         3200);
   setTimeout(function() { fadeIn('el-8',  700); },         3800);
+
+  /* Auto-redirect to complete page after seals are recorded */
+  setTimeout(function() {
+    window.location.href = '../../complete/';
+  }, 3500);
 
   /* Fallback */
   setTimeout(function() {

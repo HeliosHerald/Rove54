@@ -156,9 +156,15 @@
 Well done. You have uncovered all six seals.
       <br><br>
       Rearrange the five letters to spell a word — <em>the pointed dagger of a soaring beast</em>.
-      The sixth seal bears the location of a chest.
+      That word opens the chest.
       <br><br>
-      A word and a location. Go forth.
+      <strong style="font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.2em; color:var(--accent);">THE LOCATION</strong>
+      <br>
+      <span id="coords-display" style="font-family:'Cinzel',serif; font-size:1.2rem; letter-spacing:0.08em; color:var(--accent); display:block; margin:0.5rem 0;">38.9213530<br>-77.0485810</span>
+      Follow the path downward. The path is marked by several pipes erupting from the ground, marked with white and red stripes.
+      After a few hundred feet, you will encounter a stone stairway. The Rove trove is on the right, next to a tree trunk.
+      <br><br>
+      Go forth.
     </p>
     <hr style="border:none; border-top:1px solid rgba(107,100,82,0.25); width:50%; margin:1.5rem auto;">
     <p class="status-msg" style="font-size:0.82rem; font-style:italic; color:var(--dim); margin-top:0;">
@@ -268,15 +274,8 @@ Well done. You have uncovered all six seals.
         var letter = getCookieVal(seal.letterCookie);
         slot.textContent = letter || '✓';
       } else {
-        /* Seal 6 — display the coordinates of the chest */
-        var lat = getCookieVal('signum_lat');
-        var lon = getCookieVal('signum_lon');
-        if (lat && lon) {
-          slot.innerHTML = '<span class="coord-lat">' + lat + '</span><span class="coord-lon">' + lon + '</span>';
-          slot.classList.add('coord-slot');
-        } else {
-          slot.textContent = '✓';
-        }
+        /* Seal 6 — show checkmark, coords displayed in main message */
+        slot.textContent = '✓';
       }
     } else {
       slot.classList.add('unsolved');
