@@ -99,9 +99,9 @@
   <!-- Confirmation -->
   <p class="confirmation" id="el-6" style="opacity:0;">
     The <em>Sixth Seal</em> is broken.<br>
-    All seals have been recorded.<br>
-    Forwarding to your progress page&hellip;
+    All seals have been recorded.
   </p>
+  <a class="return-link" id="el-8" href="../../complete/" style="opacity:0;">Present your seals &#x2192;</a>
 
 </main>
 
@@ -223,11 +223,6 @@
   setTimeout(function() { fadeIn('el-6',  900); },         2700);
   setTimeout(function() { fadeIn('el-7', 1400); },         3200);
   setTimeout(function() { fadeIn('el-8',  700); },         3800);
-
-  /* Auto-redirect to complete page after seals are recorded */
-  setTimeout(function() {
-    window.location.href = '../../complete/';
-  }, 3500);
 
   /* Fallback */
   setTimeout(function() {
