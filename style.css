@@ -10,8 +10,8 @@
 /* --- COLOR PALETTE --- */
 :root {
   --bg:     #0e0d0b;       /* background — near black */
-  --ink:    #f5f0e8;       /* main text — bright warm white */
-  --dim:    #9c6a2a;       /* secondary text — warm visible orange-brown */
+  --ink:    #ffffff;       /* main text — white */
+  --dim:    #c8922a;       /* secondary text — warm orange, same as accent */
   --accent: #c8922a;       /* gold accent — use sparingly */
 }
 
