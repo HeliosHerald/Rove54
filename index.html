@@ -105,14 +105,15 @@
       font-family: 'IM Fell English', Georgia, serif;
       font-size: 0.7rem;
       font-style: italic;
-      color: rgba(107,100,82,0.45);
+      color: var(--accent);
+      opacity: 0.7;
       cursor: pointer;
       padding: 0;
       letter-spacing: 0.05em;
-      transition: color 0.3s;
+      transition: color 0.3s, opacity 0.3s;
       display: inline-block;
     }
-    .hint-toggle:hover { color: var(--dim); }
+    .hint-toggle:hover { opacity: 1; color: var(--accent); }
     .hint-toggle::before { content: "— "; }
     .hint-toggle::after { content: " —"; }
     .hint-text {
@@ -330,9 +331,6 @@
     <ul>
       <li>All seals are hidden in Adams Morgan, west of 15th street.</li>
       <li>All six seals are located on paved, accessible surfaces. Note: the final lockbox requires a short walk down a wooded, unpaved, and sloped trail of approximately sixty feet.</li>
-      <li>Complete the hunt on a single device. Your progress is stored locally and will not transfer between phones or browsers.</li>
-      <li>Do not clear your browser cookies until the hunt is complete. Doing so will erase your progress.</li>
-      <li>The seals may be found in any order. No sequence is required.</li>
       <li>Each seal is marked with the Rove 54 sigil. Hold your phone to it. <em>Note: On iOS devices the NFC reader is at the top of the device. On Android devices it is typically in the center.</em>
         <div style="margin-top:0.75rem;">
           <button class="hint-toggle" onclick="toggleNFC()" id="nfc-btn">how to tap</button>
@@ -340,7 +338,7 @@
             <div style="padding-top:1rem;">
               <style>
                 .nfc-phones { display:flex; gap:1rem; justify-content:center; margin-bottom:1rem; }
-                .nfc-col { display:flex; flex-direction:column; align-items:center; gap:0.5rem; flex:1; max-width:140px; }
+                .nfc-col { display:flex; flex-direction:column; align-items:center; gap:0.5rem; flex:1; max-width:160px; }
                 .nfc-col-label { font-size:0.75rem; font-weight:500; color:var(--ink); text-align:center; font-style:normal; letter-spacing:0.05em; }
                 .nfc-col-sub { font-size:0.7rem; color:var(--dim); text-align:center; line-height:1.4; font-style:normal; }
                 .nfc-wave { opacity:0; }
@@ -361,7 +359,7 @@
                 .nfc-note { font-size:0.72rem; color:var(--dim); line-height:1.6; font-style:normal; border-top:1px solid rgba(107,100,82,0.2); padding-top:0.75rem; margin-top:0.25rem; }
                 .nfc-note strong { color:var(--ink); font-style:normal; }
               </style>
-              <div class="nfc-phones">
+              <div class="nfc-phones" style="max-width:100%; padding:0 0.5rem;">
                 <div class="nfc-col">
                   <span class="nfc-col-label">iPhone</span>
                   <svg width="110" height="210" viewBox="0 0 110 210" fill="none">
@@ -410,6 +408,9 @@
           </div>
         </div>
       </li>
+      <li>Do not clear your browser cookies until the hunt is complete. Doing so will erase your progress.</li>
+      <li>The seals may be found in any order. No sequence is required.</li>
+      <li>Complete the hunt on a single device. Your progress is stored locally and will not transfer between phones or browsers.</li>
       <li>The final reward will not be accessible until all six seals are discovered.</li>
       <li>Questions, problems, or found something broken? Write to <a href="mailto:Rove54.quest@gmail.com">Rove54.quest@gmail.com</a></li>
     </ul>
